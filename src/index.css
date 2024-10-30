@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'trade';
+  src: url('./assets/font/Trade\ Gothic\ LT\ Bold\ Extended.ttf') format('ttf'),
+
+
+}
 
 @layer base {
   :root {
@@ -69,6 +78,16 @@
   }
 }
 
+/* Font s */
+.mont {
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.trade {
+  font-family: trade, sans-serif;
+
+}
 
 
 /* //banner */
