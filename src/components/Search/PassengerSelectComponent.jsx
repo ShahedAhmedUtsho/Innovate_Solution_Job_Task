@@ -96,20 +96,20 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
 
 
   return (
-    <Popover  open={isPoroverOpen} onOpenChange={setIsPoroverOpen} >
+    <Popover className="mont"  open={isPoroverOpen} onOpenChange={setIsPoroverOpen} >
       <PopoverTrigger asChild>
-        <Button  variant="outline">Passengers ({totalPassengerCount})</Button>
+        <Button className="mont"  variant="outline">Passengers ({totalPassengerCount})</Button>
       </PopoverTrigger>
       <PopoverContent className="md:w-80  p-6 bg-white rounded-lg shadow-md">
 
 
         {/* Adulte Componet */}
-        <div className="flex justify-between items-center mb-4 text-xs md:text-base">
+        <div className="flex justify-between items-center mont mb-4 text-xs md:text-base">
 
           <span>Adults (12 years)</span>
           <div className="flex items-center gap-2">
             <Button
-            className="scale-75 md:scale-100"
+            className="scale-75 md:scale-100 mont"
             onClick={() => updateAdultCount("decrement")}
             
             // Disable decrement button if adult count is 1
@@ -146,7 +146,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
 
 
         {/* Child Component */}
-        <div className="flex justify-between items-center mb-4 text-xs md:text-base" >
+        <div className="flex justify-between items-center mb-4 text-xs md:text-base mont" >
           <span>Children (2-12 years)</span>
 
 
@@ -219,7 +219,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
 
 
         {/* Infant AgeSection */}
-        <div className="flex justify-between items-center mb-4 text-xs md:text-base">
+        <div className="flex justify-between mont items-center mb-4 text-xs md:text-base">
           <span>Infants (2 years)</span>
           <div className="flex items-center gap-2">
             <Button
@@ -241,7 +241,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
 
         {infants.map(({ index, age }) => (
           <Select key={index} 
-          
+          className="mont"
           onValueChange={(value) => 
             
           {
@@ -254,7 +254,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
             <SelectTrigger className="w-full mb-2 text-xs md:text-base">
               <SelectValue placeholder={`Age of Infant ${index + 1}`} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="mont">
               <SelectGroup>
                 <SelectLabel>Select Age</SelectLabel>
 
@@ -278,7 +278,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
         onClick={()=>setIsPoroverOpen(false)}
         close porover 
         
-        className="w-full mt-4 bg-red-500 text-white">done</Button>
+        className="w-full mt-4 bg-green-400 text-white">done</Button>
       </PopoverContent>
     </Popover>
   );

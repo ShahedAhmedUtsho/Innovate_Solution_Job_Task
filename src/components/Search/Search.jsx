@@ -9,6 +9,9 @@ import AirportApiFetch from "@/Api/AirportApiFetch";
 import CommonBottomBar from "./CommonBottomBar";
 import { JourneyTypeUpdate } from "@/Store/SearchStore";
 import { AirportStore } from "@/Store/airportStore";
+import { Label } from "@/components/ui/label"
+import { ArrowRightLeft } from "lucide-react";
+import SearchTabContent from "./SearchTabContent";
 
 
 
@@ -51,7 +54,7 @@ useEffect(()=>{
   },[])
 
 
-
+// for change the journey type : one way , round trip , multi city
 
 const handleJourneyTypeChange = (e)=>{
   JourneyTypeUpdate(e)
@@ -67,19 +70,15 @@ const handleJourneyTypeChange = (e)=>{
 
 
     return (
-        <div className='    flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 search_component md:w-[80vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 md:rounded-2xl'>
+        <div className='    flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 search_component md:w-[90%] lg:w-[80vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 md:rounded-2xl'>
 
 <Tabs  onValueChange={handleJourneyTypeChange}  defaultValue="one_way" className=" w-full h-full flex flex-col justify-start items-start ">
-  <TabsList className="" >
+  <TabsList className="mont" >
     <TabsTrigger  value="one_way"  >One Way</TabsTrigger>
     <TabsTrigger  value="round_trip">Round Trip</TabsTrigger>
     <TabsTrigger  value="multi_city">Multi City</TabsTrigger>
   </TabsList>
-  <div className=" w-full h-full">
-  <TabsContent value="one_way">one way</TabsContent>
-  <TabsContent value="round_trip">round_trip</TabsContent>
-  <TabsContent value="multi_city">multi_city</TabsContent>
-  </div>
+<SearchTabContent />
 </Tabs>
 
 <CommonBottomBar />
