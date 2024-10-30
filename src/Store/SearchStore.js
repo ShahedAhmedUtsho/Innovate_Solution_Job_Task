@@ -17,13 +17,13 @@ export const SearchStore = new Store({
 
     ],
     travelers_adult: 1,
-    
-travelers_child :[
+
+    travelers_child: [
 
 
-]
+    ]
 
-   ,
+    ,
     travelers_infants: []
 
     ,
@@ -66,7 +66,7 @@ export const useTravelerAdult = () => {
 
 export const TravelerAdultUpdate = () => {
     SearchStore.update(s => {
-        s.travelers_adult +=1
+        s.travelers_adult += 1
     })
 }
 
@@ -110,5 +110,17 @@ export const useBaggageOption = () => {
 export const BaggageOptionUpdate = (baggage_option) => {
     SearchStore.update(s => {
         s.baggage_option = baggage_option
+    })
+}
+
+
+// booking class state and update the booking class state
+export const useBookingClass = () => {
+    return SearchStore.useState(s => s.booking_class)
+}
+
+export const BookingClassUpdate = (booking_class) => {
+    SearchStore.update(s => {
+        s.booking_class = booking_class
     })
 }

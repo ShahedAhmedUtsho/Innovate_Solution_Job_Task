@@ -4,10 +4,11 @@
 
 import { useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { AirportStore  } from "@/Store/airportStore";
+
 import AirportApiFetch from "@/Api/AirportApiFetch";
 import CommonBottomBar from "./CommonBottomBar";
 import { JourneyTypeUpdate } from "@/Store/SearchStore";
+import { AirportStore } from "@/Store/airportStore";
 
 
 
