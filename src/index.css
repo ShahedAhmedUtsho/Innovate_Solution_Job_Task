@@ -68,3 +68,39 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* //banner */
+
+
+
+@keyframes banner_Slide {
+  0% {
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.anime-opacity {
+  animation: banner_Slide 5s infinite;
+}
+
+
+
+/* //search */
+
+.search_component {
+  box-shadow: 0px 4px 16px 0px rgba(141, 211, 187, 0.15);
+}
