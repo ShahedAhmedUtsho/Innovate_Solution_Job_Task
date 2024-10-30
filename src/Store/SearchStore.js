@@ -16,17 +16,7 @@ export const SearchStore = new Store({
 
 
     ],
-    travelers_adult: 1,
 
-    travelers_child: [
-
-
-    ]
-
-    ,
-    travelers_infants: []
-
-    ,
     non_stop_flight: "any", // Options: any or non-stop, 1, 2, or 3
     baggage_option: "any", // Options: any or only-baggage
     booking_class: "Economy", // Options: Economy, Premium-Economy, Business, First-Class

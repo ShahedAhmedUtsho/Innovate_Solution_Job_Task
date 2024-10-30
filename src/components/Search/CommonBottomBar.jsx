@@ -6,6 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
+import PassengerSelectComponent from './PassengerSelectComponent';
   
 
 const CommonBottomBar = () => {
@@ -36,7 +37,7 @@ const handle_baggage_option = (e)=>{
 
 
     return (
-        <div className="search_Bottom h-10 w-full  flex gap-10">
+        <div className="search_Bottom h-10 w-full  flex md:flex-row flex-col gap-10">
 
             
 
@@ -86,6 +87,7 @@ const handle_baggage_option = (e)=>{
 </Select>
 
       
+      <PassengerSelectComponent />
       
           
       
