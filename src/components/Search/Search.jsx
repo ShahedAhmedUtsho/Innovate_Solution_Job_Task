@@ -67,7 +67,7 @@ const handleJourneyTypeChange = (e)=>{
 
 
     return (
-        <div className='   flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 search_component md:w-[80vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 rounded-2xl'>
+        <div className='    flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 search_component md:w-[80vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 md:rounded-2xl'>
 
 <Tabs  onValueChange={handleJourneyTypeChange}  defaultValue="one_way" className=" w-full h-full flex flex-col justify-start items-start ">
   <TabsList className="" >

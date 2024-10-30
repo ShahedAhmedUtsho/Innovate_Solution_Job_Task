@@ -37,12 +37,12 @@ const handle_baggage_option = (e)=>{
 
 
     return (
-        <div className="search_Bottom h-10 w-full  flex md:flex-row flex-col gap-10">
+        <div className="search_Bottom  w-full  flex md:flex-row flex-col gap-10">
 
             
 
-<Select defaultValue='Economy' onValueChange={handle_booking_class} >
-  <SelectTrigger className="w-[180px]">
+<Select className="!w-full !bg-black" defaultValue='Economy' onValueChange={handle_booking_class} >
+  <SelectTrigger className="md:w-[180px] ">
     <SelectValue  placeholder={booking_class} >
         {booking_class}
     </SelectValue>
@@ -57,7 +57,7 @@ const handle_baggage_option = (e)=>{
 
 
 <Select defaultValue='any' onValueChange={handle_Non_Stop_Flight} >
-  <SelectTrigger className="w-[180px]">
+  <SelectTrigger className="md:w-[180px]">
     <SelectValue  placeholder={NonStopFlight} >
         {NonStopFlight === 'any' ? 'any flight' : NonStopFlight}
     </SelectValue>
@@ -73,7 +73,7 @@ const handle_baggage_option = (e)=>{
 </Select>
 
 <Select defaultValue='Any' onValueChange={handle_baggage_option} >
-  <SelectTrigger className="w-[180px]">
+  <SelectTrigger className="md:w-[180px]">
     <SelectValue  placeholder='any baggage' >
         {BaggageOption === 'any' ? 'any baggage' : 'only baggage'}
     </SelectValue>

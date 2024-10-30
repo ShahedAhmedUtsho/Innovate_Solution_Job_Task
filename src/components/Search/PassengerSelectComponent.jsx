@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
 
 
 
@@ -30,6 +31,9 @@ import {
 
 const PassengerSelectComponent = () => {
   const { adult, children, infants } = PassengerStore.useState((s) => s);
+  //lets close porover on click 
+const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
+
   // all passenger count
   const totalPassengerCount = usePassengerCount()
 
@@ -92,19 +96,20 @@ const PassengerSelectComponent = () => {
 
 
   return (
-    <Popover>
+    <Popover  open={isPoroverOpen} onOpenChange={setIsPoroverOpen} >
       <PopoverTrigger asChild>
-        <Button variant="outline">Passengers ({totalPassengerCount})</Button>
+        <Button  variant="outline">Passengers ({totalPassengerCount})</Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-6 bg-white rounded-lg shadow-md">
+      <PopoverContent className="md:w-80  p-6 bg-white rounded-lg shadow-md">
 
 
         {/* Adulte Componet */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 text-xs md:text-base">
+
           <span>Adults (12 years)</span>
           <div className="flex items-center gap-2">
             <Button
-            
+            className="scale-75 md:scale-100"
             onClick={() => updateAdultCount("decrement")}
             
             // Disable decrement button if adult count is 1
@@ -119,7 +124,7 @@ const PassengerSelectComponent = () => {
             <span>{adult}</span>
 
 
-            <Button onClick={
+            <Button className="scale-75 md:scale-100" onClick={
                 
                 () => {updateAdultCount("increment")}
                 
@@ -141,12 +146,15 @@ const PassengerSelectComponent = () => {
 
 
         {/* Child Component */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 text-xs md:text-base" >
           <span>Children (2-12 years)</span>
 
 
           <div className="flex items-center gap-2">
-            <Button onClick={() =>
+            <Button
+            
+            className="scale-75 md:scale-100"
+            onClick={() =>
             // passing the action and payload 
             {
                 updatePassengerArray("children", "decrement")
@@ -159,7 +167,7 @@ const PassengerSelectComponent = () => {
                 {children.length}
                 
                 </span>
-            <Button onClick={() => updatePassengerArray("children", "increment")}>+</Button>
+            <Button className="scale-75 md:scale-100" onClick={() => updatePassengerArray("children", "increment")}>+</Button>
           </div>
         </div>
 
@@ -181,7 +189,7 @@ const PassengerSelectComponent = () => {
             handleAgeChange("children", child.index, parseInt(value))
             
             }}>
-            <SelectTrigger className="w-full mb-2">
+            <SelectTrigger className="w-full mb-2 text-xs md:text-base">
 
 
               <SelectValue placeholder={`Age of Child ${child.index + 1}`} />
@@ -211,12 +219,17 @@ const PassengerSelectComponent = () => {
 
 
         {/* Infant AgeSection */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 text-xs md:text-base">
           <span>Infants (2 years)</span>
           <div className="flex items-center gap-2">
-            <Button onClick={() => updatePassengerArray("infants", "decrement")} disabled={infants.length === 0}>-</Button>
+            <Button
+            className="scale-75 md:scale-100"
+            
+            onClick={() => updatePassengerArray("infants", "decrement")}
+            
+            disabled={infants.length === 0}>-</Button>
             <span>{infants.length}</span>
-            <Button onClick={() => updatePassengerArray("infants", "increment")}>+</Button>
+            <Button className="scale-75 md:scale-100" onClick={() => updatePassengerArray("infants", "increment")}>+</Button>
           </div>
         </div>
 
@@ -238,7 +251,7 @@ const PassengerSelectComponent = () => {
 
 
           }>
-            <SelectTrigger className="w-full mb-2">
+            <SelectTrigger className="w-full mb-2 text-xs md:text-base">
               <SelectValue placeholder={`Age of Infant ${index + 1}`} />
             </SelectTrigger>
             <SelectContent>
@@ -262,8 +275,10 @@ const PassengerSelectComponent = () => {
         {/* Apply Button */}
         <Button 
         // close porever on click
+        onClick={()=>setIsPoroverOpen(false)}
+        close porover 
         
-        className="w-full mt-4 bg-red-500 text-white">Okay</Button>
+        className="w-full mt-4 bg-red-500 text-white">done</Button>
       </PopoverContent>
     </Popover>
   );
