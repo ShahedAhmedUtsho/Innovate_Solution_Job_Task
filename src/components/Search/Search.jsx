@@ -24,6 +24,10 @@ const Search = () => {
   </div>
 </Tabs>
 
+<div className="search_Bottom h-10 w-full bg-slate-200">
+
+</div>
+
         </div>
     );
 };
