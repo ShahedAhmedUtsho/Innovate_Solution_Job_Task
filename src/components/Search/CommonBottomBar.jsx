@@ -54,7 +54,7 @@ const CommonBottomBar = () => {
   const return_date = useSelectedReturnDate();
 
   const travelers_adult = useTravelerAdult();
-  console.log(travelers_adult);
+ 
   const travelers_child = useTravelers_child();
   const travelers_child_age = useTravelers_child_ages();
   const travelers_infants = useTravelers_infant();
@@ -95,7 +95,7 @@ const CommonBottomBar = () => {
   };
 
   const handleSearch = () => {
-    console.log("searching for flight");
+   
     const formattedDepartureDate = formatDate(departure_date);
     const formattedReturnDate = formatDate(return_date);
 
@@ -166,7 +166,7 @@ const CommonBottomBar = () => {
     // job task provaided final datatype is json so i console is a a Json body
 
     const jsonData = JSON.stringify(finalData);
-    console.log(jsonData);
+    
 
     console.log(finalData);
   };
@@ -238,7 +238,7 @@ const CommonBottomBar = () => {
       </div>
       <Button
         onClick={handleSearch}
-        className=" self-end  md:w-auto w-full mt-4  "
+        className=" self-end bg-green-700 hover:bg-green-800 hover:text-green-50  md:w-auto w-full mt-4  "
       >
         Search
       </Button>

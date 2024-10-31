@@ -74,7 +74,7 @@ import {
     return (
       <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen} className="w-full">
         <PopoverTrigger asChild>
-          <div className="md:p-2 p-4 w-full md:w-full border border-black">
+          <div className="md:p-2 p-4 bg-white/90 w-full md:w-full border border-black">
             {/* Render city and country */}
             <Label className="text-xs md:text-[1.1vw] lg:text-xs block text-slate-900/70" htmlFor="email">
               Form - {arrivalAirport.search_contents.split("-").slice(2, 3).join(" ")}

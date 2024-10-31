@@ -21,7 +21,7 @@ const Header = () => {
               <Button variant="outline" className="bg-slate-500/30 text-xs md:text-sm text-white md:block hidden" > 
                    Sign In
               </Button>
-              <Button className="bg-green-300 text-black  text-xs md:text-sm md:block hidden"  >
+              <Button className="bg-green-800 text-green-100  hover:bg-green-600  text-xs md:text-sm md:block hidden"  >
                   Sign Up
               </Button>
               <AlignCenter className="md:hidden text-white" />

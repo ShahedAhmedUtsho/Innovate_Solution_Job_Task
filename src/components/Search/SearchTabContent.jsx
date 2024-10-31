@@ -15,8 +15,7 @@ const SearchTabContent = () => {
 
   // Function to alternate the values of arrival and departure airports
   const alternateValue = () => {
-    console.log("hitting");
-    console.log(arrivalAirport, departureAirport);
+  
 
     ArrivalAirportUpdate({ ...departureAirport });
     DepartureAirportUpdate({ ...arrivalAirport });

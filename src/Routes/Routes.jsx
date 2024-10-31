@@ -8,7 +8,7 @@ const Routes = () => {
         
 
        
-        <div className='min-h-[150vh] lg:container mx-auto lg:pt-8  '>
+        <div className='min-h-[150vh]  mx-auto   '>
             <Header />
            
             <Outlet  />

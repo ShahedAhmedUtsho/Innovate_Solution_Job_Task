@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: 'trade';
-  src: url('./assets/font/Trade\ Gothic\ LT\ Bold\ Extended.ttf') format('ttf'),
+  src: url('./assets/font/Trade\ Gothic\ LT\ Bold\ Extended.ttf'),
 
 
 }
@@ -85,10 +85,15 @@
 }
 
 .trade {
-  font-family: trade, sans-serif;
+  font-family: 'trade', sans-serif;
 
 }
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px white;
 
+  text-stroke: 2px white;
+}
 
 /* //banner */
 
@@ -131,5 +136,6 @@
 .texture {
   background-image: url("./assets/Global/1.png");
   background-size: 300px;
+  background-color: rgba(255, 255, 255, 0.904);
 
 }
