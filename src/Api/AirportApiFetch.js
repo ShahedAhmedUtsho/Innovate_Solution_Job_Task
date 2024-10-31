@@ -8,7 +8,7 @@
 // this will also make the app work in slow network 
 // localstorage can store up to 5mb so its okey to store on localstorage the data that is not sensitive
 
-import { AirportStore } from "@/Store/airportStore";
+import { AirportStore } from "@/Store/AirportsStore";
 import axios from "axios";
 
 

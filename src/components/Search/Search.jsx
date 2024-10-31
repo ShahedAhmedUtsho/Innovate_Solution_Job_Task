@@ -3,15 +3,15 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 import { useEffect } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Tabs,  TabsList, TabsTrigger } from "../ui/tabs";
 
 import AirportApiFetch from "@/Api/AirportApiFetch";
 import CommonBottomBar from "./CommonBottomBar";
 import { JourneyTypeUpdate } from "@/Store/SearchStore";
-import { AirportStore } from "@/Store/airportStore";
-import { Label } from "@/components/ui/label"
-import { ArrowRightLeft } from "lucide-react";
+
+
 import SearchTabContent from "./SearchTabContent";
+import { AirportStore } from "@/Store/AirportsStore";
 
 
 
