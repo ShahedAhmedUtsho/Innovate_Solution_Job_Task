@@ -7,8 +7,8 @@ export const SelectedAirportStore = new Store({
     to_Search_text: "",
     fromSearchAirports: [],
     toSearchAirports: [],
-    selectedDepartureDate: null,
-    selectedArrivalDate: null,
+    selectedDepartureDate: new Date(),
+    selectedReturnDate: new Date(),
 
 
     Departure: {
@@ -139,13 +139,13 @@ export const SelectedDepartureDateUpdate = (selectedDepartureDate) => {
 // manage the selectedArrivalDate state and update the selectedArrivalDate state        
 
 
-export const useSelectedArrivalDate = () => {
-    return SelectedAirportStore.useState(s => s.selectedArrivalDate)
+export const useSelectedReturnDate = () => {
+    return SelectedAirportStore.useState(s => s.selectedReturnDate)
 }
 
-export const SelectedArrivalDateUpdate = (selectedArrivalDate) => {
+export const SelectedReturnDateUpdate = (selectedReturnDate) => {
     SelectedAirportStore.update(s => {
-        s.selectedArrivalDate = selectedArrivalDate
+        s.selectedReturnDate = selectedReturnDate
     })
 }
 

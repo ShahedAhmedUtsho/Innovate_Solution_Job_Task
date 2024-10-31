@@ -1,6 +1,6 @@
 import { TabsContent } from '../ui/tabs';
 import { ArrowRightLeft } from 'lucide-react';
-import { Label } from '../ui/label';
+
 import FromAirport from './FromAirport';
 import ToAirport from './ToAirport';
 import DeptureDate from './DeptureDate';
@@ -55,8 +55,20 @@ const SearchTabContent = () => {
       </TabsContent>
 
       {/* Multi City Tab */}
-      <TabsContent value="multi_city">
-        multi_city
+      <TabsContent className=" " value="multi_city">
+        <h2 className='min-h-5 font-bold mont flex justify-center items-baseline'>
+          Under development
+        </h2>
+       
+        <div className="w-full my-5 gap-2 flex flex-col md:flex-row md:items-center items-end">
+          <FromAirport />
+          <ArrowRightLeft onClick={alternateValue} className="bg-green-200 rotate-90 md:rotate-0 text-green-900 rounded-full p-1 md:w-20" />
+          <ToAirport />
+          <DeptureDate />
+          
+        </div>
+      
+    
       </TabsContent>
     </div>
   );
