@@ -122,4 +122,14 @@
 
 .search_component {
   box-shadow: 0px 4px 16px 0px rgba(141, 211, 187, 0.15);
+
+
+
+}
+
+
+.texture {
+  background-image: url("./assets/Global/1.png");
+  background-size: 300px;
+
 }

@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 
 import logo from "../../assets/Logo/Logo.svg";
+import { AlignCenter } from "lucide-react";
 
 
 const Header = () => {
@@ -13,16 +14,17 @@ const Header = () => {
           
 
           <div>
-              <img className="max-h-20 " src={logo} alt="logo" />
+              <img className="md:max-h-20 w-20 md:w-auto  " src={logo} alt="logo" />
 
           </div>
-          <div className="flex  justify-center items-center gap-4 ">
-              <Button variant="outline" className="bg-slate-500/30 text-white" > 
+          <div className="flex  justify-center items-center gap-2 md:gap-4 ">
+              <Button variant="outline" className="bg-slate-500/30 text-xs md:text-sm text-white md:block hidden" > 
                    Sign In
               </Button>
-              <Button className="bg-green-300 text-black"  >
+              <Button className="bg-green-300 text-black  text-xs md:text-sm md:block hidden"  >
                   Sign Up
               </Button>
+              <AlignCenter className="md:hidden text-white" />
           </div>
           
          </div>

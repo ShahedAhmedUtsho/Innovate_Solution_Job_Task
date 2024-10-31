@@ -5,12 +5,16 @@ import 'slick-carousel/slick/slick-theme.css';
 import Header from '@/components/Header/Header';
 const Routes = () => {
     return (
-        <div className='min-h-[150vh] lg:container mx-auto lg:pt-8 '>
+        
+
+       
+        <div className='min-h-[150vh] lg:container mx-auto lg:pt-8  '>
             <Header />
            
             <Outlet  />
             
         </div>
+       
     );
 };
 
