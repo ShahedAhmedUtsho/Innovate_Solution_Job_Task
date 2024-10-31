@@ -6,8 +6,37 @@ import FromAirport from './FromAirport';
 import ToAirport from './ToAirport';
 import DeptureDate from './DeptureDate';
 import ReturnDate from './ReturnDate';
+import { FromSearchAirportsUpdate, SelectedAirportStore, ToSearchAirportsUpdate } from '@/Store/SelectedAirportStore';
+import { useEffect } from 'react';
 
 const SearchTabContent = () => {
+
+
+// Alternate the value of arrival and deparature 
+const arrivalAirport = SelectedAirportStore.useState(s=>s.Arrival) ;
+const departureAirport = SelectedAirportStore.useState(s=>s.Departure) ;
+
+const alternateValue = ()=>{
+  // console.log("hitting")
+  // console.log(arrivalAirport , departureAirport)
+
+    
+  //   FromSearchAirportsUpdate({...arrivalAirport}) ;
+  //   ToSearchAirportsUpdate( {...departureAirport})
+
+    
+    
+    
+    }
+
+
+    // useEffect(()=>{
+    //   console.log(arrivalAirport,"arrival")
+    //   console.log(departureAirport,"depture")
+
+    // },[arrivalAirport,departureAirport])
+
+
     return (
         <div className=" w-full h-full   ">
         <TabsContent value="one_way" asChild>
@@ -18,36 +47,18 @@ const SearchTabContent = () => {
 
 
 
-{/*             
-            <div className="md:p-2 p-4   w-full md:w-full  border border-black">
-            <Label className="text-xs md:text-[1.1vw] lg:text-xs  block text-slate-900/70" htmlFor="email">Form</Label>
-            <Label className="text-base md:!text-[1.5vw] lg:!text-base overflow-x-auto" htmlFor="email">DAC - International Airport </Label>
-      
-      
-            </div> */}
-
 
 
 <FromAirport /> 
 
 
             
-            <ArrowRightLeft className="bg-green-200 rotate-90 md:rotate-0  text-green-900 rounded-full p-1 md:w-20 " />
-            {/* <div className="md:p-2 p-4  w-full md:w-full  border border-black">
-            <Label className="text-xs md:text-[1.1vw] lg:text-xs block text-slate-900/70" htmlFor="email">To</Label>
-            <Label className="text-base md:!text-[1.5vw] lg:!text-base  overflow-x-auto" htmlFor="email">DAC - International Airport </Label>
-      
-      
-            </div> */}
+            <ArrowRightLeft onClick={alternateValue} className="bg-green-200 rotate-90 md:rotate-0  text-green-900 rounded-full p-1 md:w-20 " />
+       
 
 <ToAirport />
 
-            {/* <div className="md:p-2 p-4  w-full md:w-full  border border-black md:ml-5">
-            <Label className="text-xs md:text-[1.1vw] lg:text-xs block text-slate-900/70" htmlFor="email">Departure Date</Label>
-            <Label className="text-base md:!text-[1.5vw] lg:!text-base overflow-x-auto" htmlFor="email">November 7, 2024 </Label>
-      
-      
-            </div> */}
+         
 
             <DeptureDate />
             
@@ -69,8 +80,8 @@ const SearchTabContent = () => {
           <FromAirport />
 
 
-            <ArrowRightLeft className="bg-green-200 md:hidden rotate-90 md:rotate-0  text-green-900 rounded-full p-1 md:w-20 " />
-            <div className='p-2 text-green-900 bg-green-200 rounded-full   md:h-8 md:w-8 hidden md:flex justify-center items-center  '>
+            <ArrowRightLeft onClick={alternateValue} className="bg-green-200 md:hidden rotate-90 md:rotate-0  text-green-900 rounded-full p-1 md:w-20 " />
+            <div onClick={alternateValue} className='p-2 text-green-900 bg-green-200 rounded-full   md:h-8 md:w-8 hidden md:flex justify-center items-center  '>
             <ArrowRightLeft className="rotate-90 md:rotate-0      " />
             </div>
             

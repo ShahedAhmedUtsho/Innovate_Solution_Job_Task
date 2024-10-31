@@ -276,7 +276,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
         <Button 
         // close porever on click
         onClick={()=>setIsPoroverOpen(false)}
-        close porover 
+       
         
         className="w-full mt-4 bg-green-400 text-white">done</Button>
       </PopoverContent>

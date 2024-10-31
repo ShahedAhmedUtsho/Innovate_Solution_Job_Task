@@ -15,6 +15,9 @@ import axios from "axios";
 
 
 const AirportApiFetch = async () => {
+    console.log("url", import.meta.env.VITE_AIRPORT_API);
+    console.log("api key", import.meta.env.VITE_AIRPORT_API_KEY,);
+    console.log("secrate code ", import.meta.env.VITE_AIRPORT_API_SECRETE_CODE);
 
     try {
         const res = await axios.get(import.meta.env.VITE_AIRPORT_API, {
