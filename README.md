@@ -22,7 +22,7 @@ This repository contains a flight booking application built with React and Pulls
     ```sh
     npm install
     ```
-3. u have to give some api in .env sile for api that provided on email
+3. u have to give some api in .env.local sile for api that provided on email
      ```sh
     VITE_AIRPORT_API_KEY
     VITE_AIRPORT_API_SECRETE_CODE
