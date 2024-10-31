@@ -47,7 +47,7 @@ import {
     useEffect(() => {
       const timeOut = setTimeout(() => {
         if (to_search_text.length > 1) {
-          console.log('searching for airport', to_search_text);
+        
   
           const newSearchAirports = airports.filter(airport =>
             new RegExp(`\\b${to_search_text}`, 'i').test(airport.search_contents)

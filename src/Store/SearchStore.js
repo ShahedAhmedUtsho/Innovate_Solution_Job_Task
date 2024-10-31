@@ -4,7 +4,7 @@
 import { Store } from "pullstate";
 
 export const SearchStore = new Store({
-    journey_type: "one_way",
+    journey_type: "OneWay",
     segment: [
         // {
         //     departure_airport_type: "AIRPORT",
@@ -16,7 +16,7 @@ export const SearchStore = new Store({
 
 
     ],
-
+    preferred_carrier: [],
     non_stop_flight: "any", // Options: any or non-stop, 1, 2, or 3
     baggage_option: "any", // Options: any or only-baggage
     booking_class: "Economy", // Options: Economy, Premium-Economy, Business, First-Class
@@ -49,16 +49,6 @@ export const JourneyTypeUpdate = (journey_type) => {
 
 
 
-// traveler adult state and update the traveler adult state
-export const useTravelerAdult = () => {
-    return SearchStore.useState(s => s.travelers_adult)
-}
-
-export const TravelerAdultUpdate = () => {
-    SearchStore.update(s => {
-        s.travelers_adult += 1
-    })
-}
 
 
 

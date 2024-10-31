@@ -10,8 +10,7 @@ import {
   DepartureAirportUpdate,
   FromSearchAirportsUpdate,
   FromSearchTextUpdate,
-  SelectedAirportStore,
-  ToSearchAirportsUpdate,
+
   useArrivalAirport,
   useDepartureAirport,
   useFromSearchAirports,
@@ -47,7 +46,7 @@ const FromAirport = () => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       if (form_search_text.length > 1) {
-        console.log('searching for airport', form_search_text);
+       
 
         const newSearchAirports = airports.filter(airport =>
           new RegExp(`\\b${form_search_text}`, 'i').test(airport.search_contents)

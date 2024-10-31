@@ -22,16 +22,12 @@ const SearchTabContent = () => {
     DepartureAirportUpdate({ ...arrivalAirport });
   };
 
-  // Log the current state of arrival and departure airports whenever they change
-  useEffect(() => {
-    console.log(arrivalAirport, "arrival");
-    console.log(departureAirport, "departure");
-  }, [arrivalAirport, departureAirport]);
+
 
   return (
     <div className="w-full h-full">
       {/* One Way Tab */}
-      <TabsContent value="one_way" asChild>
+      <TabsContent value="OneWay" asChild>
         <div className="w-full my-5 gap-2 flex flex-col md:flex-row md:items-center items-end">
           <FromAirport />
           <ArrowRightLeft onClick={alternateValue} className="bg-green-200 rotate-90 md:rotate-0 text-green-900 rounded-full p-1 md:w-20" />
@@ -41,7 +37,7 @@ const SearchTabContent = () => {
       </TabsContent>
 
       {/* Round Trip Tab */}
-      <TabsContent value="round_trip" asChild>
+      <TabsContent value="RoundTrip" asChild>
         <div className="w-full my-5 gap-2 flex flex-col md:flex-row md:items-center items-end">
           <FromAirport />
           <ArrowRightLeft onClick={alternateValue} className="bg-green-200 md:hidden rotate-90 md:rotate-0 text-green-900 rounded-full p-1 md:w-20" />
@@ -55,7 +51,7 @@ const SearchTabContent = () => {
       </TabsContent>
 
       {/* Multi City Tab */}
-      <TabsContent className=" " value="multi_city">
+      <TabsContent className=" " value="MultiCity">
         <h2 className='min-h-5 font-bold mont flex justify-center items-baseline'>
           Under development
         </h2>

@@ -9,7 +9,7 @@ export const SelectedAirportStore = new Store({
     toSearchAirports: [],
     selectedDepartureDate: new Date(),
     selectedReturnDate: new Date(),
-
+    departure_airport_type: "AIRPORT",
 
     Departure: {
         code: 'DAC',
@@ -150,5 +150,17 @@ export const SelectedReturnDateUpdate = (selectedReturnDate) => {
 }
 
 
+
+// manage the departure airport type state and update the departure airport type state
+
+export const useDepartureAirportType = () => {
+    return SelectedAirportStore.useState(s => s.departure_airport_type)
+}
+
+export const DepartureAirportTypeUpdate = (departure_airport_type) => {
+    SelectedAirportStore.update(s => {
+        s.departure_airport_type = departure_airport_type
+    })
+}
 
 
