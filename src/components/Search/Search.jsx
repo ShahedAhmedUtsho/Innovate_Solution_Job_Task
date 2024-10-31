@@ -27,13 +27,13 @@ const airports = localStorage.getItem('airports') ;
 
 useEffect(()=>{
   if(airports){
-    console.log('data exist')
+    
     AirportStore.update(s=>{
       s.airports = JSON.parse(airports)
     })
    
   }else{
-    console.log('data not exist') ;
+   
     // AirportApiFetch is a simple async function Which is phase data,(@/Api/AirportApiFetch)
     //   which is fetch data from airport auto suggestion API 
     // store it on local storage and set on airportStore state (@Store/AirportStore.js)
@@ -70,7 +70,7 @@ const handleJourneyTypeChange = (e)=>{
 
 
     return (
-        <div className=' search_component    flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8  md:w-[90%] lg:w-[80vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 md:rounded-2xl'>
+        <div className=' search_component    flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8  md:w-[90%] lg:w-[85vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 md:rounded-2xl'>
 
 <Tabs  onValueChange={handleJourneyTypeChange}  defaultValue="OneWay" className=" w-full h-full flex flex-col justify-start items-start ">
   <TabsList className="mont" >

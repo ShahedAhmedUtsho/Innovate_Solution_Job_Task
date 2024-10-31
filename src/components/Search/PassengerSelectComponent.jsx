@@ -124,16 +124,9 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
             <span>{adult}</span>
 
 
-            <Button className="scale-75 md:scale-100" onClick={
-                
-                () => {updateAdultCount("increment")}
-                
-                
-                }>
+            <Button className="scale-75 md:scale-100" onClick={() => {updateAdultCount("increment")}}>
                 
                 +
-                
-                
                 </Button>
           </div>
         </div>
@@ -239,7 +232,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
         {/* Infant Age Dropdowns */}
 {/* i map over the infants array and create a select dropdown for each infant */}
 
-        {infants.map(({ index, age }) => (
+        {infants.map(({ index }) => (
           <Select key={index} 
           className="mont"
           onValueChange={(value) => 

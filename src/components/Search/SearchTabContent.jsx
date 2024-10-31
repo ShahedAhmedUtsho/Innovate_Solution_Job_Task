@@ -6,7 +6,7 @@ import ToAirport from './ToAirport';
 import DeptureDate from './DeptureDate';
 import ReturnDate from './ReturnDate';
 import { ArrivalAirportUpdate, DepartureAirportUpdate, SelectedAirportStore } from '@/Store/SelectedAirportStore';
-import { useEffect } from 'react';
+
 
 const SearchTabContent = () => {
   // Get the current state of arrival and departure airports
