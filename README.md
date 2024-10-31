@@ -14,14 +14,21 @@ This repository contains a flight booking application built with React and Pulls
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/flight-booking-app.git
-    cd flight-booking-app
+    git clone https://github.com/ShahedAhmedUtsho/Innovate_Solution_Job_Task.git
+    cd Innovate_Solution_Job_Task
     ```
 
 2. Install the dependencies:
     ```sh
     npm install
     ```
+3. u have to give some api in .env sile for api that provided on email
+     ```sh
+    VITE_AIRPORT_API_KEY
+    VITE_AIRPORT_API_SECRETE_CODE
+    VITE_AIRPORT_API
+    ```
+
 
 ## Running the Application
 
@@ -86,6 +93,4 @@ Manages the state of the selected departure and arrival airports, search text, a
 
 The `AirportApiFetch.js` file contains the logic for fetching airport data from an external API and storing it in local storage and the AirportsStore.
 
-## Conclusion
-
-This README provides a basic overview of the flight booking application, including how to run the application, the project structure, main components, and state management. For more detailed information, please refer to the source code and comments within each file.
+hope u are like it !!!
