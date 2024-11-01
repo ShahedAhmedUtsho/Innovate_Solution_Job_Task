@@ -6,6 +6,7 @@ export const SelectedAirportStore = new Store({
     from_Search_text: "",
     to_Search_text: "",
     fromSearchAirports: [],
+    
     toSearchAirports: [],
     selectedDepartureDate: new Date(),
     selectedReturnDate: new Date(),

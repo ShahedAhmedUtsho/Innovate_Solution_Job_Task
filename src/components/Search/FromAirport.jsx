@@ -33,6 +33,8 @@ const FromAirport = () => {
   const departureAirport = useDepartureAirport();
   const arrivalAirport = useArrivalAirport();
 
+
+
   // Render airports after search and initial airport
   const renderAirports = useMemo(()=>SearchedAirport.length > 0 ? SearchedAirport : airports.slice(0, 6),[SearchedAirport,airports]);
 
@@ -58,6 +60,8 @@ const FromAirport = () => {
 
     return () => clearTimeout(timeOut);
   }, [form_search_text,airports]);
+
+
 
   // Set the departure airport onClick
   const setDepartureAirport = useCallback((item) => {
@@ -107,6 +111,7 @@ const FromAirport = () => {
           </div>
         </div>
       </PopoverTrigger>
+      
       <PopoverContent side="bottom" className="w-96 md:w-72 lg:w-96" asChild>
         <div className="border border-gray-300 w-full max-w-md mx-auto">
           <Input

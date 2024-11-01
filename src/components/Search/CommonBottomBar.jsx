@@ -33,10 +33,13 @@ import {
   useSelectedReturnDate,
 } from "@/Store/SelectedAirportStore";
 import { useCallback } from "react";
+import {  useMultiSegment } from "@/Store/MultiCityStore";
 
 const CommonBottomBar = () => {
   //import SearchStore for data
+// import multiCityStore 
 
+const MultiSegment = useMultiSegment();
  
 
   // import state for handling search
@@ -99,69 +102,134 @@ const CommonBottomBar = () => {
     const formattedDepartureDate = formatDate(departure_date);
     const formattedReturnDate = formatDate(return_date);
 
-    const finalData =
-      journey_type === "OneWay"
-        ? {
-            journey_type,
-            segment: [
-              {
-                departure_airport_type,
-                departure_airport,
-                arrival_airport_type: departure_airport_type, // give the same value
-                arrival_airport,
-                departure_date: formattedDepartureDate,
-              },
-            ],
+    let finalData;
 
-            travelers_adult,
-            travelers_child,
-            travelers_child_age,
-            travelers_infants,
-            travelers_infants_age,
-            preferred_carrier,
-            non_stop_flight,
-            baggage_option,
-            booking_class,
-            supplier_uid,
-            partner_id,
-            language,
-            short_ref: "12121212121",
-          }
-        : {
-            journey_type,
-            segment: [
-              {
-                departure_airport_type,
-                departure_airport,
-                arrival_airport_type: departure_airport_type, // give the same value
-                arrival_airport,
-                departure_date: formattedDepartureDate,
-              },
-              {
-                // one more segment option if its round trip
-                departure_airport_type,
-                departure_airport: arrival_airport,
-                arrival_airport_type: departure_airport_type, // give the same value
-                arrival_airport: departure_airport,
-                departure_date: formattedReturnDate,
-              },
-            ],
-            travelers_adult,
-            travelers_child,
-            travelers_child_age,
-            travelers_infants,
-            travelers_infants_age,
-            preferred_carrier,
-            non_stop_flight,
-            baggage_option,
-            booking_class,
-            supplier_uid,
-            partner_id,
-            language,
-            short_ref: "12121212121",
-          };
+switch (journey_type) {
+  case "OneWay":
+    finalData = {
+      journey_type,
+      segment: [
+        {
+          departure_airport_type,
+          departure_airport,
+          arrival_airport_type: departure_airport_type, // same value
+          arrival_airport,
+          departure_date: formattedDepartureDate,
+        },
+      ],
+      travelers_adult,
+      travelers_child,
+      travelers_child_age,
+      travelers_infants,
+      travelers_infants_age,
+      preferred_carrier,
+      non_stop_flight,
+      baggage_option,
+      booking_class,
+      supplier_uid,
+      partner_id,
+      language,
+      short_ref: "12121212121",
+    };
+    break;
 
-    // so final data is going to console.
+  case "RoundTrip":
+    finalData = {
+      journey_type,
+      segment: [
+        {
+          departure_airport_type,
+          departure_airport,
+          arrival_airport_type: departure_airport_type, // same value
+          arrival_airport,
+          departure_date: formattedDepartureDate,
+        },
+        {
+          // second segment for round trip
+          departure_airport_type,
+          departure_airport: arrival_airport,
+          arrival_airport_type: departure_airport_type, // same value
+          arrival_airport: departure_airport,
+          departure_date: formattedReturnDate,
+        },
+      ],
+      travelers_adult,
+      travelers_child,
+      travelers_child_age,
+      travelers_infants,
+      travelers_infants_age,
+      preferred_carrier,
+      non_stop_flight,
+      baggage_option,
+      booking_class,
+      supplier_uid,
+      partner_id,
+      language,
+      short_ref: "12121212121",
+    };
+    break;
+
+  default:
+    finalData = {
+
+      journey_type,
+      segment:   MultiSegment.map((item)=>{
+        return {
+          departure_airport_type,
+          departure_airport: item?.departure_airport.code,
+          arrival_airport_type: departure_airport_type, // same value
+          arrival_airport: item?.arrival_airport.code,
+          departure_date: formatDate(item?.departure_date) ,
+        }
+      })
+      
+      ,
+
+
+      travelers_adult,
+      travelers_child,
+      travelers_child_age,
+      travelers_infants,
+      travelers_infants_age,
+      preferred_carrier,
+      non_stop_flight,
+      baggage_option,
+      booking_class,
+      supplier_uid,
+      partner_id,
+      language,
+      short_ref: "12121212121",
+
+
+
+
+
+    }; // Optional: handle other journey types or default case
+    break;
+}
+
+
+
+
+// Validate that segment values are not undefined or empty
+const isValidSegment = (segment) => {
+  return (
+    segment.departure_airport_type &&
+    segment.departure_airport &&
+    segment.arrival_airport_type &&
+    segment.arrival_airport &&
+    segment.departure_date
+  );
+};
+
+if (!finalData.segment.every(isValidSegment)) {
+  console.error("Invalid segment data , fill the all Field", finalData.segment);
+  return;
+}
+
+
+
+
 
     // job task provaided final datatype is json so i console is a a Json body
 
@@ -188,6 +256,7 @@ const CommonBottomBar = () => {
     supplier_uid,
     partner_id,
     language,
+    MultiSegment
 
   ])
 

@@ -6,14 +6,7 @@ import { Store } from "pullstate";
 export const SearchStore = new Store({
     journey_type: "OneWay",
     segment: [
-        // {
-        //     departure_airport_type: "AIRPORT",
-        //     departure_airport: "DAC",
-        //     arrival_airport_type: "AIRPORT",
-        //     arrival_airport: "BKK",
-        //     departure_date: "2024-11-29"
-        // },
-
+   
 
     ],
     preferred_carrier: [],
