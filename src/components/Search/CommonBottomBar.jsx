@@ -34,8 +34,17 @@ import {
 } from "@/Store/SelectedAirportStore";
 import { useCallback } from "react";
 import {  useMultiSegment } from "@/Store/MultiCityStore";
+import { useToast } from "@/hooks/use-toast";
+
+
+
+
+
+
 
 const CommonBottomBar = () => {
+
+  const { toast } = useToast()
   //import SearchStore for data
 // import multiCityStore 
 
@@ -224,11 +233,32 @@ const isValidSegment = (segment) => {
 
 if (!finalData.segment.every(isValidSegment)) {
   console.error("Invalid segment data , fill the all Field", finalData.segment);
-  return;
+  toast({
+    className: `text-white bg-red-500  max-h-18 gap-0  leading-0  !text-xs`,
+    variant:  "error" ,
+    duration: 1500,
+    title: "  Error : incomplete values",
+    description: "fill the values",
+    
+  })
+  console.log( "some values are missing ! please fill the values");
+  console.log( finalData);
+return;
+
+
+  
 }
 
 
+//show toast on submit
 
+toast({
+  className: `text-white bg-green-700 max-h-18 !text-xs`,
+  variant:  "success" ,
+  duration: 1500,
+  title: " Successfully submitted",
+  description: "Check the console for the data",
+})
 
 
     // job task provaided final datatype is json so i console is a a Json body
@@ -256,7 +286,9 @@ if (!finalData.segment.every(isValidSegment)) {
     supplier_uid,
     partner_id,
     language,
-    MultiSegment
+    MultiSegment,
+    toast
+  
 
   ])
 

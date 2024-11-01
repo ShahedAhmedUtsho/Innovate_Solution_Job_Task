@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Header from '@/components/Header/Header';
+import { Toaster } from "@/components/ui/toaster"
 const Routes = () => {
     return (
         
@@ -12,7 +13,7 @@ const Routes = () => {
             <Header />
            
             <Outlet  />
-            
+            <Toaster />
         </div>
        
     );

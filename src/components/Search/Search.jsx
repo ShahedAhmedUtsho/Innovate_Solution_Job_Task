@@ -88,3 +88,4 @@ const handleJourneyTypeChange = useCallback((e)=>{
 };
 
 export default Search;
+
