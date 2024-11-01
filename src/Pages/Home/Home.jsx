@@ -1,6 +1,11 @@
 import Banner from "@/components/Banner/Banner";
 import Header from "@/components/Header/Header";
-import Search from "@/components/Search/Search";
+import SearchBoxSkeleton from "@/components/Search/SearchBoxSkeleton";
+import React from "react";
+const  Search =   React.lazy(()=>import("@/components/Search/Search"))
+
+
+
 
 
 const Home = () => {
@@ -8,7 +13,16 @@ const Home = () => {
     <div className="">
       
         <Banner />
-        <Search />
+
+        <React.Suspense fallback={
+       
+            <SearchBoxSkeleton />
+            }>
+        {/* <Search /> */}
+        
+          <Search />
+        
+        </React.Suspense>
        
     </div>
     );
