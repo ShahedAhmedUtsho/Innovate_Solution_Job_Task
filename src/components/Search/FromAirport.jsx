@@ -16,7 +16,7 @@ import {
   useFromSearchAirports,
   useFromSearchText,
 } from "@/Store/SelectedAirportStore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const FromAirport = () => {
   // State for popover close
@@ -34,10 +34,10 @@ const FromAirport = () => {
   const arrivalAirport = useArrivalAirport();
 
   // Render airports after search and initial airport
-  const renderAirports = SearchedAirport.length > 0 ? SearchedAirport : airports.slice(0, 6);
+  const renderAirports = useMemo(()=>SearchedAirport.length > 0 ? SearchedAirport : airports.slice(0, 6),[SearchedAirport,airports]);
 
   // Remove selected arrival airport from the list
-  const finalRender = renderAirports.filter((item) => item.code !== arrivalAirport.code);
+  const finalRender = useMemo(()=>renderAirports.filter((item) => item.code !== arrivalAirport.code),[renderAirports,arrivalAirport]);
 
   // Using useEffect to search for airport when user types on input field
   // Using timeout for delay the search and prevent the API call on every key press
@@ -57,18 +57,39 @@ const FromAirport = () => {
     }, 500);
 
     return () => clearTimeout(timeOut);
-  }, [form_search_text]);
+  }, [form_search_text,airports]);
 
   // Set the departure airport onClick
-  const setDepartureAirport = (item) => {
+  const setDepartureAirport = useCallback((item) => {
     DepartureAirportUpdate(item);
     setIsPopoverOpen(false);
-  };
+  },[]);
 
   // Handle input value change
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     FromSearchTextUpdate(e.target.value);
-  };
+  },[]);
+
+
+
+
+
+  const renderedItems = useMemo(() => 
+    finalRender.map((item) => (
+      <div
+        onClick={() => { setDepartureAirport(item); }}
+        className="flex justify-between items-center p-3 border-b text-sm hover:bg-gray-100 transition duration-200"
+        key={item.code}
+      >
+        <div className="flex-1">
+          <div className="font-medium">{item.city_name} - {item.country_name}</div>
+          <div className="text-xs text-gray-500">{item.airport_name}</div>
+        </div>
+        <div className="text-sm font-medium text-gray-700">{item.code}</div>
+      </div>
+    ))
+  , [finalRender, setDepartureAirport]);
+  
 
   return (
     <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen} className="w-full">
@@ -94,21 +115,7 @@ const FromAirport = () => {
             className="w-full p-2 !ring-0 text-sm focus:!outline-none focus:!ring-0 active:!ring-0 active:!border-none !outline-none"
           />
           <div className="max-h-60 overflow-y-scroll scroll-m-4 pr-4">
-            {finalRender.map((item, index) => {
-              return (
-                <div
-                  onClick={() => { setDepartureAirport(item); }}
-                  className="flex justify-between items-center p-3 border-b text-sm hover:bg-gray-100 transition duration-200"
-                  key={index}
-                >
-                  <div className="flex-1">
-                    <div className="font-medium">{item.city_name} - {item.country_name}</div>
-                    <div className="text-xs text-gray-500">{item.airport_name}</div>
-                  </div>
-                  <div className="text-sm font-medium text-gray-700">{item.code}</div>
-                </div>
-              );
-            })}
+          {renderedItems}
           </div>
         </div>
       </PopoverContent>

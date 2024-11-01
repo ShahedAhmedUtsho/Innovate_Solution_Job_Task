@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useCallback,  useMemo,  useState } from "react";
 
 
 
@@ -38,14 +38,14 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
   const totalPassengerCount = usePassengerCount()
 
   // Helper to update adult count
-  const updateAdultCount = (action) => {
+  const updateAdultCount = useCallback((action) => {
     PassengerStore.update((s) => {
       if (action === "increment") s.adult += 1;
 
 
       else if (s.adult > 1) s.adult -= 1; // Minimum 1 adult required 
     });
-  };
+  },[]);
 
 
 
@@ -58,7 +58,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
   // i use hear a reducer function like redux  to update the state i am new to this concept in pullstate ,
 //    i thing this is a good concept to update the state in pullstate also
 
-  const updatePassengerArray = (type, action) => {
+  const updatePassengerArray = useCallback((type, action) => {
     PassengerStore.update((s) => {
       if (action === "increment") {
         // Set index based on length of array
@@ -66,15 +66,15 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
         // Default age 12 for children and 0 for infants 
         // push the new passenger to the array
         // i check many ticket booking website and see they also dont give names or and details ,so i give index as name 
-
-        s[type].push({ index: newIndex, age: type === "children" ? 12 : 0 }); 
+        s[type] = [...s[type], { index: newIndex, age:type === "children" ? 12 : 0 }]
+        // s[type].push({ index: newIndex, age: type === "children" ? 12 : 0 }); 
       } else if (s[type].length > 0) {
         // Remove the last entry on decrement if length is greater than 0
         // i dont know why  pullstate give s as argument to update the state
         s[type].pop(); 
       }
     });
-  };
+  },[]);
 
 
 
@@ -83,12 +83,48 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
 
 
   // Handle age change for children and infants both by action type like redux
-  const handleAgeChange = (type, index, newAge) => {
+  const handleAgeChange = useCallback((type, index, newAge) => {
     PassengerStore.update((s) => {
       const passenger = s[type].find((any) => any.index === index);
       if (passenger) passenger.age = newAge; // Update age after finding the passenger 
     });
-  };
+  },[]);
+
+
+const rendedPassenger = useMemo(()=>{
+  return infants.map(({ index }) => (
+    <Select key={index} 
+    className="mont"
+    onValueChange={(value) => 
+      
+    {
+        // pass the value  after converting into number
+        handleAgeChange("infants", index, parseInt(value))
+    }
+
+
+    }>
+      <SelectTrigger className="w-full mb-2 text-xs md:text-base">
+        <SelectValue placeholder={`Age of Infant ${index + 1}`} />
+      </SelectTrigger>
+      <SelectContent className="mont">
+        <SelectGroup>
+          <SelectLabel>Select Age</SelectLabel>
+
+          {/* // i am using constractor to create an array of 2 elements */}
+          
+          {[...Array(2)].map((_, i) => (
+            <SelectItem key={i} value={i}> 
+            {i} years
+            
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ));
+},[infants,handleAgeChange])
+
 
 
 
@@ -232,37 +268,7 @@ const [isPoroverOpen, setIsPoroverOpen] = useState(false) ;
         {/* Infant Age Dropdowns */}
 {/* i map over the infants array and create a select dropdown for each infant */}
 
-        {infants.map(({ index }) => (
-          <Select key={index} 
-          className="mont"
-          onValueChange={(value) => 
-            
-          {
-              // pass the value  after converting into number
-              handleAgeChange("infants", index, parseInt(value))
-          }
-
-
-          }>
-            <SelectTrigger className="w-full mb-2 text-xs md:text-base">
-              <SelectValue placeholder={`Age of Infant ${index + 1}`} />
-            </SelectTrigger>
-            <SelectContent className="mont">
-              <SelectGroup>
-                <SelectLabel>Select Age</SelectLabel>
-
-                {/* // i am using constractor to create an array of 2 elements */}
-                
-                {[...Array(2)].map((_, i) => (
-                  <SelectItem key={i} value={i}> 
-                  {i} years
-                  
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        ))}
+        {rendedPassenger}
 
 
         {/* Apply Button */}

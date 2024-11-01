@@ -6,10 +6,12 @@ import {
   } from "@/components/ui/popover";
 
 import { Calendar } from "@/components/ui/calendar"
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {  SelectedDepartureDateUpdate, useSelectedDepartureDate,  } from '@/Store/SelectedAirportStore';
 
 const DeptureDate = () => {
+
+
 const date = useSelectedDepartureDate();
  
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -18,13 +20,13 @@ const date = useSelectedDepartureDate();
 
 // 
 
-const handleOnSelect = (e) => {
-  if (e instanceof Date && !isNaN(e)) {
-    SelectedDepartureDateUpdate(e);
-  } else {
-    console.error("Invalid date selected:", e);
-  }
-};
+  const handleOnSelect = useCallback((e) => {
+    if (e instanceof Date && !isNaN(e)) {
+      SelectedDepartureDateUpdate(e);
+    } else {
+      console.error("Invalid date selected:", e);
+    }
+  }, []);
 
 
   return (

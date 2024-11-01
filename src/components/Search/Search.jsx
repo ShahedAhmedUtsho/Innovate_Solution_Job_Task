@@ -2,7 +2,7 @@
 
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Tabs,  TabsList, TabsTrigger } from "../ui/tabs";
 
 import AirportApiFetch from "@/Api/AirportApiFetch";
@@ -18,7 +18,7 @@ import { AirportStore } from "@/Store/AirportsStore";
 const Search = () => {
 // check is airport data  exist in localStorage
 
-const airports = localStorage.getItem('airports') ;
+const airports = useMemo(()=>localStorage.getItem("airports"),[]) ;
 
 // 
 
@@ -38,7 +38,7 @@ useEffect(()=>{
     //   which is fetch data from airport auto suggestion API 
     // store it on local storage and set on airportStore state (@Store/AirportStore.js)
 
-
+    
     AirportApiFetch() 
  
    
@@ -56,11 +56,11 @@ useEffect(()=>{
 
 // for change the journey type : one way , round trip , multi city
 
-const handleJourneyTypeChange = (e)=>{
+const handleJourneyTypeChange = useCallback((e)=>{
   JourneyTypeUpdate(e)
   
 
-}
+},[])
 
 
 

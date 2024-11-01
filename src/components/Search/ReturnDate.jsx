@@ -8,6 +8,7 @@ import {
 import { Calendar } from "@/components/ui/calendar"
 
 import {  SelectedReturnDateUpdate, useSelectedReturnDate,  } from '@/Store/SelectedAirportStore';
+import { useCallback } from 'react';
 
 const ReturnDate = () => {
 const date = useSelectedReturnDate();
@@ -18,10 +19,10 @@ const date = useSelectedReturnDate();
 
 // 
 
-const handleOnSelect = (e)=>{
+const handleOnSelect = useCallback((e)=>{
 
   SelectedReturnDateUpdate(e);
-}
+},[])
 
 
   return (

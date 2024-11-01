@@ -32,12 +32,12 @@ import {
   useSelectedDepartureDate,
   useSelectedReturnDate,
 } from "@/Store/SelectedAirportStore";
+import { useCallback } from "react";
 
 const CommonBottomBar = () => {
   //import SearchStore for data
 
-  const NonStopFlight = useNonStopFlight();
-  const BaggageOption = useBaggageOption();
+ 
 
   // import state for handling search
 
@@ -72,19 +72,19 @@ const CommonBottomBar = () => {
   const language = "en";
 
   //update the state of the booking class, non stop flight and baggage option
-  const handle_booking_class = (e) => {
+  const handle_booking_class =useCallback( (e) => {
     BookingClassUpdate(e);
-  };
-  const handle_Non_Stop_Flight = (e) => {
+  },[]);
+  const handle_Non_Stop_Flight = useCallback((e) => {
     NonStopFlightUpdate(e);
-  };
+  },[]);
 
-  const handle_baggage_option = (e) => {
+  const handle_baggage_option = useCallback((e) => {
     BaggageOptionUpdate(e);
-  };
-  const handle_departure_airport_type = (e) => {
+  },[]);
+  const handle_departure_airport_type = useCallback((e) => {
     DepartureAirportTypeUpdate(e);
-  };
+  },[]);
 
   // i am not not able to convert to that formate , thats why i use github copilate to convert the date to that formate
   const formatDate = (date) => {
@@ -94,7 +94,7 @@ const CommonBottomBar = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
    
     const formattedDepartureDate = formatDate(departure_date);
     const formattedReturnDate = formatDate(return_date);
@@ -169,7 +169,27 @@ const CommonBottomBar = () => {
     
 
     console.log(finalData);
-  };
+  },[
+    journey_type,
+    departure_airport_type,
+    departure_airport,
+    arrival_airport,
+    departure_date,
+    return_date,
+    travelers_adult,
+    travelers_child,
+    travelers_child_age,
+    travelers_infants,
+    travelers_infants_age,
+    preferred_carrier,
+    non_stop_flight,
+    baggage_option,
+    booking_class,
+    supplier_uid,
+    partner_id,
+    language,
+
+  ])
 
   return (
     <>
@@ -194,8 +214,8 @@ const CommonBottomBar = () => {
 
         <Select defaultValue="any" onValueChange={handle_Non_Stop_Flight}>
           <SelectTrigger className="md:w-[180px] lg:!w-full ">
-            <SelectValue placeholder={NonStopFlight}>
-              {NonStopFlight === "any" ? "any flight" : NonStopFlight}
+            <SelectValue placeholder={non_stop_flight}>
+              {non_stop_flight === "any" ? "any flight" : non_stop_flight}
             </SelectValue>
           </SelectTrigger>
           <SelectContent className="mont">
@@ -210,7 +230,7 @@ const CommonBottomBar = () => {
         <Select defaultValue="Any" onValueChange={handle_baggage_option}>
           <SelectTrigger className="md:w-[180px] lg:!w-full">
             <SelectValue placeholder="any baggage">
-              {BaggageOption === "any" ? "any baggage" : "only baggage"}
+              {baggage_option === "any" ? "any baggage" : "only baggage"}
             </SelectValue>
           </SelectTrigger>
           <SelectContent className="mont">
