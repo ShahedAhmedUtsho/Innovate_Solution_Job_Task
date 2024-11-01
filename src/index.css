@@ -4,12 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'trade';
-  src: url('./assets/font/Trade\ Gothic\ LT\ Bold\ Extended.ttf'),
 
-
-}
 
 @layer base {
   :root {
@@ -84,10 +79,7 @@
 
 }
 
-.trade {
-  font-family: 'trade', sans-serif;
 
-}
 .text-outline {
   color: transparent;
   -webkit-text-stroke: 2px white;
