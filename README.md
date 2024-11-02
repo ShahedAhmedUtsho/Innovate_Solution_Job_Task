@@ -34,7 +34,7 @@ This repository contains a flight booking application built with React and Pulls
 
 1. Start the development server:
     ```sh
-    npm start
+    npm run dev
     ```
 
 2. Open your browser and navigate to `http://localhost:3000` to see the application in action.
