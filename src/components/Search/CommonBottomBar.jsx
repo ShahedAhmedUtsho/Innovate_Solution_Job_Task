@@ -35,6 +35,7 @@ import {
 import { useCallback } from "react";
 import {  useMultiSegment } from "@/Store/MultiCityStore";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
@@ -43,6 +44,17 @@ import { useToast } from "@/hooks/use-toast";
 
 
 const CommonBottomBar = () => {
+
+  // use location and navigate form use navigation 
+  const navigate = useNavigate() ; 
+  const {pathname} = useLocation();
+  console.log(location),"i am location";
+
+
+
+
+
+
 
   const { toast } = useToast()
   //import SearchStore for data
@@ -294,7 +306,7 @@ toast({
 
   return (
     <>
-      <div className="search_Bottom  w-full  flex md:flex-row flex-col gap-5 mont">
+      <div className={`search_Bottom  w-full  ${pathname !=="/" ? " hidden lg:flex " : ""} flex md:flex-row flex-col gap-5 mont`}>
         <Select
           className="!w-full !bg-black"
           defaultValue="Economy"
@@ -359,7 +371,7 @@ toast({
       </div>
       <Button
         onClick={handleSearch}
-        className=" self-end bg-green-700 hover:bg-green-800 hover:text-green-50  md:w-auto w-full mt-4  "
+        className={` ${pathname !=="/" ? " hidden lg:flex " : ""}  self-end bg-green-700 hover:bg-green-800 hover:text-green-50  md:w-auto w-full mt-4  `}
       >
         Search
       </Button>

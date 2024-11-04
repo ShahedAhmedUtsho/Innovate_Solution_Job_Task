@@ -9,8 +9,8 @@ const Header = () => {
 
     
     return (
-       <div className={` flex  min-h-20 lg:mt-8  z-50  absolute   top-0 left-0 right-0 mx-auto  justify-center items-center `}>
-          <div className={`  flex justify-between items-center lg:px-8 px-4 container  `}>
+       <div className={` flex   min-h-20 lg:mt-8  z-50  absolute   top-0 left-0 right-0 mx-auto  justify-center items-center `}>
+          <div className={`  flex justify-between items-center lg:px-8 md:px-4 lg:container w-full  `}>
           
 
           <div>

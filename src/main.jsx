@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import Routes from './Routes/Routes';
 import Home from './Pages/Home/Home';
+import Flight from './Pages/flight/Flight';
+import FlightSearch from './Pages/flight/FlightSearch';
 
 
 const router = createBrowserRouter([
@@ -17,6 +19,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },{
+        path: "/flight",
+        element: <Flight /> , 
+        children:[
+          {
+            path: "search",
+            element: <FlightSearch />
+          }
+        ]
       }
     ]
   },
