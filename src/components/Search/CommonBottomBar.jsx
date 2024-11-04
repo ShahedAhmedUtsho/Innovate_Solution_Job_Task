@@ -2,6 +2,7 @@ import {
   BaggageOptionUpdate,
   BookingClassUpdate,
   NonStopFlightUpdate,
+  SearchObjectUpdate,
   useBaggageOption,
   useBookingClass,
   useJourneyType,
@@ -48,7 +49,7 @@ const CommonBottomBar = () => {
   // use location and navigate form use navigation 
   const navigate = useNavigate() ; 
   const {pathname} = useLocation();
-  console.log(location),"i am location";
+ 
 
 
 
@@ -255,12 +256,11 @@ if (!finalData.segment.every(isValidSegment)) {
   })
   console.log( "some values are missing ! please fill the values");
   console.log( finalData);
-return;
+
 
 
   
-}
-
+}else{
 
 //show toast on submit
 
@@ -279,6 +279,18 @@ toast({
     
 
     console.log(finalData);
+    SearchObjectUpdate(finalData);
+    navigate("/flight/search")
+
+}
+
+
+
+
+
+
+
+
   },[
     journey_type,
     departure_airport_type,
