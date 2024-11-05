@@ -92,5 +92,25 @@ Manages the state of the selected departure and arrival airports, search text, a
 ## API Integration
 
 The `AirportApiFetch.js` file contains the logic for fetching airport data from an external API and storing it in local storage and the AirportsStore.
+## Flight Search Results
+
+After users enter their search criteria, the application fetches and displays flight options in a user-friendly format. Key features include:
+
+### Display of Search Results
+
+- **Flight Details**: Shows airline name, flight number, and flight duration.
+- **Departure and Arrival**: Indicates departure and arrival times along with airport codes.
+- **Pricing**: Displays ticket prices for each option.
+
+### Sorting and Filtering Options
+
+Users can refine their search results by applying sorting and filtering options:
+
+- **Sort by Price, Duration, or Departure Time**: Allows users to order results according to their preferences.
+- **Filter by Airlines, Stops, and Departure/Arrival Times**: Enables filtering results based on specific airlines, direct or multi-stop flights, and preferred travel times.
+
+This functionality enhances the search experience by helping users find the best flights that meet their criteria quickly and efficiently.
+
+
 
 hope u are like it !!!
