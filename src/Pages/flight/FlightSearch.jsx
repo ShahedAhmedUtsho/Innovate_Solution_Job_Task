@@ -16,7 +16,7 @@ const FlightSearch = () => {
     // get the search result and search object state from the store
     const searchResult = useSearchResult();
     const searchObject = useSearchObject();
-  
+  const [loading,setLoading] = useState(false);
 // for slider price range filter
   const [priceRange, setPriceRange] = useState([0, 5000]);
 
@@ -54,6 +54,7 @@ const handleSortByTime = (e) => {
   
   useEffect(() => {
     const fetchAndFilterFlights = async () => {
+        setLoading(true);
         try {
             const response = await axios.get("/flight_search_result.json");
             const filteredFlights = filterFlights(response.data, searchObject);
@@ -110,6 +111,9 @@ const Journey_duration_time = arrival_time - departure_time;
         } catch (error) {
             console.error("Error fetching flight data:", error);
         }
+        finally{
+            setLoading(false);
+        }
     };
 
     fetchAndFilterFlights();
@@ -128,8 +132,7 @@ const Journey_duration_time = arrival_time - departure_time;
 
 
   return (
-    <>
-    {searchResult.length === 0 ? <div className="text-center mt-8 w-full flex justify-center items-center col-span-12">No Flights Found</div> :  <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4 ">
+ <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4 ">
 
 
 
@@ -138,7 +141,7 @@ const Journey_duration_time = arrival_time - departure_time;
 
 
 
-<Card className="col-span-3 shadow-md rounded-lg hidden lg:block lg:sticky left-0 top-4 h-screen">
+<Card className="col-span-3 shadow-md rounded-lg hidden lg:block lg:sticky left-0 top-4 h-screen overflow-y-scroll">
           <CardHeader>
             <CardTitle>Filters</CardTitle>
           </CardHeader>
@@ -187,19 +190,17 @@ id="terms"
 
 
 
-
-
-
-
-
-
-
 <div className=" col-span-12 lg:col-span-9">
 
 
 
 
 
+{ loading === false && searchResult.length === 0 ? <div className="text-center mt-8 w-full flex justify-center items-center col-span-12">No Flights Found</div> : (
+<div className="grid grid-cols-1 gap-4">
+  Total Result :{searchResult.length}
+  </div>
+) }
 
 
 
@@ -271,9 +272,14 @@ View Details
 
 
 
-  </div> }
+  </div>
+  
 
-    </>
+ 
+
+
+  
+    
    
   );
 };
