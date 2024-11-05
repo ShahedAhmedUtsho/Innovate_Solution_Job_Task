@@ -64,6 +64,24 @@ const navigate = useNavigate()
         });
     };
 
+// fetch the flight data from the json file and filter the data based on the search object
+// and update the search result state with the final filtered flights
+
+// Importent Note: 
+
+ // the json file u provide me is complicated  . but i think i can filter the data based on the search object
+ // for handle this type of data i need to Collaborate and concern with the backend developer by there api documentation and response data , 
+ // this type of data handle by quarry the api and get the data based on the search object but in this case i have a json file so that i filter the data based on the search object this is the only option . 
+ // the eatch data of json have same price but routes are deffarent , , i data have more then 1 routes , 
+ // first i thought i show only the first route elemet as a departure and last route element as a arrival but i think its not a good idea but dont do that  because then the time of the journey is too long more the 34 hourse , i think thats not good , thats why i filter and map over the all segment and route to get every possible way , so this type of confution i need to discuss with the backend developer and get the proper data and proper way to handle the data 
+ // by the way , right now i am doing this as a possible way that i have to handel that json file data . 
+ // i think the each data of the json file is a flight data and the flight data has a flight group and the flight group has a routes 
+ // so its not a result but a flight data so i filter the data based on the search object and return the filtered data , 
+ // and add the propertise of departure and arrival route and journey duration time , and then i filter the duplicate data based on the flight key and price , and then i filter the data based on the price range , and then i sort the data based on the devotion time , and then i update the search result state with the final filtered flights
+
+ 
+
+
     useEffect(() => {
         const fetchAndFilterFlights = async () => {
             setLoading(true);
@@ -71,6 +89,8 @@ const navigate = useNavigate()
                 const response = await axios.get("/flight_search_result.json");
                 const filteredFlights = filterFlights(response.data, searchObject);
 
+
+                
                 // Map the filtered flights to add departure and arrival routes
                 const newResult = filteredFlights.map((item) => {
                     const Departure_Route = item.flight_group[0].routes.find(route => route.origin === searchObject.segment[0].departure_airport);
@@ -123,16 +143,40 @@ const navigate = useNavigate()
 
     }, [searchObject, priceRange, sortByTime]);  // Dependency array includes both searchObject and priceRange
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4 mb-10 ">
+
+
+{/* // mobile filter button */}
+
             <span onClick={handleFilterToggle} className={`w-10 h-10 p-1 bg-green-800 transition-all  duration-300 ease-linear  fixed top-20 left-0 border-y border-white  rounded-r-full ${showFilter ? "hidden" : "flex "} lg:hidden  justify-center items-center `}>
                 <Filter className="text-white relative right-1" />
             </span>
+
+
+            {/* Filter sidebar */}
+
 
             <div className={`w-[50vw] max-w-72 fixed top-0 transition-all  duration-300 ease-linear ${showFilter ? "left-0": "left-[-100vw]"}  h-screen bg-green-500 z-50 lg:hidden`}>
                 <span onClick={handleFilterToggle} className="h-8 w-8 p-1 flex justify-center items-center  text-white bg-green-800 absolute  right-0 top-0">
                     <X size={20} className="" />
                 </span>
+
+
+{/* mobile filter card  */}
 
                 <Card className=" shadow-md rounded-lg   py-10 md:px-2 lg:sticky left-0 top-4 h-screen overflow-y-scroll">
                     <CardHeader className="p-2">
@@ -188,6 +232,9 @@ const navigate = useNavigate()
                 </Card>
             </div>
 
+
+
+            {/* Desktop Filter sidebar */}
             <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 min-h-96 overflow-y-scroll">
                 <CardHeader>
                     <CardTitle>Filters</CardTitle>
@@ -241,6 +288,13 @@ const navigate = useNavigate()
                 </CardContent>
             </Card>
 
+
+
+
+
+
+
+            {/* Flight Results show component */}
             <div className=" col-span-12 lg:col-span-9 relative">
                 {loading === false && searchResult.length === 0 ? <div className="text-center  w-full flex justify-center items-center col-span-12 flex-col gap-2 mt-20 opacity-50">
 
@@ -256,13 +310,15 @@ const navigate = useNavigate()
                 </div>
                 )}
 
+                {/* map the search result to show the flight data */}
+
                 {searchResult.map((item, index) => {
                     const departure = item.departure_route;
                     const arrival = item.arrival_route;
-
+// convert the time to date object
                     const departure_time = new Date(departure.departure_time);
                     const arrival_time = new Date(arrival.arrival_time);
-
+// calculate the journey duration
                     const differenceInMs = arrival_time - departure_time;
                     const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
                     const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
