@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 import { useSearchObject, useSearchResult, SearchResultUpdate } from "@/Store/SearchStore";
 // import Default_logo from "../../assets/Logo/Logo-96.png";
-import { Filter, Frown, Heart, SearchSlash, X } from "lucide-react";
+import { Filter, Frown, Heart, Plane, PlaneLanding, PlaneTakeoff, SearchSlash, X } from "lucide-react";
 import axios from "axios";
 import moment from "moment";
 import Slider from 'rc-slider';
@@ -79,6 +79,9 @@ const navigate = useNavigate()
  // so its not a result but a flight data so i filter the data based on the search object and return the filtered data , 
  // and add the propertise of departure and arrival route and journey duration time , and then i filter the duplicate data based on the flight key and price , and then i filter the data based on the price range , and then i sort the data based on the devotion time , and then i update the search result state with the final filtered flights
 
+
+ // the json data is not real time , its only 101 object of json , the routs are limited ,   
+ // for check u can use date 29 nov  or 30 nov  , its have some data , route is ((( new delhi to bangkok ))) ((Dhaka to bangkok )) ((Dhaka to new delhi ))  ( ( dhaka to Kunming Changshui International Airport at 29 nov)) ((dhaka to Kuala Lumpur International Airport at 29 nav))  ((dhaka to Singapore Changi Airport at 29 nav)) so those are available in the json file ,
  
 
 
@@ -90,7 +93,7 @@ const navigate = useNavigate()
                 const filteredFlights = filterFlights(response.data, searchObject);
 
 
-                
+
                 // Map the filtered flights to add departure and arrival routes
                 const newResult = filteredFlights.map((item) => {
                     const Departure_Route = item.flight_group[0].routes.find(route => route.origin === searchObject.segment[0].departure_airport);
@@ -235,9 +238,9 @@ const navigate = useNavigate()
 
 
             {/* Desktop Filter sidebar */}
-            <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 min-h-96 overflow-y-scroll">
+            <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 h-96 overflow-y-scroll">
                 <CardHeader>
-                    <CardTitle>Filters</CardTitle>
+                    <CardTitle className="mont">Filters</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="mb-4">
@@ -276,7 +279,7 @@ const navigate = useNavigate()
                             Sort by Devotion Time
                         </label>
                     </div>
-                    <div className={` ${pathname ==="/" ? " hidden  " : ""} flex gap-2 w-full mt-5  lg:bg-black/10 hover:bg-green-500/20  rounded-lg relative top-2 py-2 px-3   `} onClick={()=>{
+                    {/* <div className={` ${pathname ==="/" ? " hidden  " : ""} flex gap-2 w-full mt-5  lg:bg-black/10 hover:bg-green-500/20  rounded-lg relative top-2 py-2 px-3   `} onClick={()=>{
                     navigate("/")
                       }}>
                     <SearchSlash className="" />
@@ -284,7 +287,7 @@ const navigate = useNavigate()
                       Modify search
 
 
-                    </div>
+                    </div> */}
                 </CardContent>
             </Card>
 
@@ -328,11 +331,11 @@ const navigate = useNavigate()
                         <Fade key={index} className="flex justify-between items-start  min-h-56">
                             <div className="flex items-start w-full  ">
                                 {/* <img src={Default_logo} alt="Airline Logo" className="w-12 h-12" /> */}
-                                <Card className="w-full m mx-auto my-4 shadow-lg ">
+                                <Card className="w-full m mx-auto my-4 shadow-lg  ">
                                     <CardHeader className="p-4 border-b w-full ">
                                         <CardTitle className="flex justify-between items-center text-lg font-bold">
-                                            <span className="text-green-700">{item.price.total} {item.price.currency}</span>
-                                            <span className="text-sm text-gray-500">{journey_duration}</span>
+                                            <span className="text-green-700 mont">{item.price.total} {item.price.currency}</span>
+                                            <span className="text-sm text-gray-500 ">{journey_duration}</span>
                                         </CardTitle>
                                         <CardDescription className="text-gray-600 mt-1 text-sm">
                                             {departure?.operating?.carrier_name}: {item?.flight_key}
@@ -340,15 +343,34 @@ const navigate = useNavigate()
                                     </CardHeader>
 
                                     <CardContent className="flex flex-col md:flex-row gap-4 p-4">
-                                        <div className="w-full md:w-1/2 border border-gray-900 rounded-sm p-4 bg-gray-50">
-                                            <h3 className="font-semibold text-gray-800 flex justify-between"><span>Departure</span> <span className="text-xs">{departure.origin_airport.city}</span> </h3>
+                                        <div className="w-full md:w-1/2 border border-gray-900 rounded-sm p-4 bg-gray-50 hover:bg-slate-100 transition-all hover:shadow-md">
+                                            <h3 className="font-semibold text-gray-800 flex justify-between">
+                                              <span className="flex gap-2 items-center">  <span>
+                                              Departure
+                                              </span>  <PlaneTakeoff size={15} />
+                                             
+                                                
+                                                </span>
+                                                
+                                                
+                                                 <span className="text-xs mont">{departure.origin_airport.city}</span> </h3>
                                             <p className="text-gray-700 text-sm">{departure?.origin_airport.name}</p>
                                             <h3 className="font-semibold mt-2 text-gray-800 text-xs">Departure Time</h3>
-                                            <p className="text-gray-700">{ moment(departure_time).format('MMMM Do YYYY, h:mm a')  }</p>
+                                            <p className="text-gray-700 mont">{ moment(departure_time).format('MMMM Do YYYY, h:mm a')  }</p>
                                         </div>
-                                        <div className="w-full md:w-1/2 border border-gray-900 rounded-sm p-4 bg-gray-50">
-                                            <h3 className="font-semibold text-gray-800 flex justify-between"><span>Arrival</span> <span className="text-xs">{departure.destination_airport.city}</span> </h3>
-                                            <p className="text-gray-700 text-sm">{arrival?.destination_airport?.name}</p>
+                                        <div className="w-full md:w-1/2 border border-gray-900 rounded-sm p-4 bg-gray-50 hover:bg-slate-100 transition-all  hover:shadow-md">
+                                            <h3 className="font-semibold text-gray-800 flex justify-between">
+                                              
+                                            <span className="flex gap-2 items-center">  <span>
+                                              Arrival
+                                              </span>  <PlaneLanding size={15} />
+                                             
+                                                
+                                                </span>
+                                              
+                                              
+                                              <span className="text-xs mont">{departure.destination_airport.city}</span> </h3>
+                                            <p className="text-gray-700 text-sm ">{arrival?.destination_airport?.name}</p>
                                             <h3 className="font-semibold mt-2 text-gray-800 text-xs">Arrival Time</h3>
                                             <p className="text-gray-700">{  moment(arrival_time).format('MMMM Do YYYY, h:mm a')}</p>
                                         </div>
@@ -356,8 +378,12 @@ const navigate = useNavigate()
 
                                     <CardFooter className="p-4 flex gap-4 items-center">
                                         <Heart size={32} className="border-green-800 rounded-md border p-2 text-green-700 hover:bg-green-100" />
-                                        <Button className="w-full bg-green-800 text-white font-semibold rounded-md py-2 hover:bg-green-700">
-                                            View Details
+                                        <Button className="w-full bg-green-800  transition-all active:scale-95 text-white font-semibold rounded-md py-2 hover:bg-green-700 flex justify-center  items-center">
+                                        <Plane />
+                                          <span>
+                                          
+                                          View Details
+                                          </span>
                                         </Button>
                                     </CardFooter>
                                 </Card>
