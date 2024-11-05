@@ -11,6 +11,7 @@ import moment from "moment";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { useLocation, useNavigate } from "react-router-dom";
+import { Fade } from "react-awesome-reveal";
 
 const FlightSearch = () => {
 // navigate and location 
@@ -133,7 +134,7 @@ const navigate = useNavigate()
                     <X size={20} className="" />
                 </span>
 
-                <Card className=" shadow-md rounded-lg   py-10 md:px-2 lg:sticky left-0 top-4 h-screen  overflow-y-scroll">
+                <Card className=" shadow-md rounded-lg   py-10 md:px-2 lg:sticky left-0 top-4 h-screen overflow-y-scroll">
                     <CardHeader className="p-2">
                         <CardTitle className="text-sm p-0">Filters</CardTitle>
                     </CardHeader>
@@ -187,7 +188,7 @@ const navigate = useNavigate()
                 </Card>
             </div>
 
-            <Card className="col-span-3 shadow-md rounded-lg hidden lg:block lg:sticky left-0 top-4 h-screen overflow-y-scroll">
+            <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 h-screen overflow-y-scroll">
                 <CardHeader>
                     <CardTitle>Filters</CardTitle>
                 </CardHeader>
@@ -264,7 +265,7 @@ const navigate = useNavigate()
                     const journey_duration = `${hours}h ${minutes}m`;
 
                     return (
-                        <div key={index} className="flex justify-between items-start  min-h-56">
+                        <Fade key={index} className="flex justify-between items-start  min-h-56">
                             <div className="flex items-start w-full  ">
                                 {/* <img src={Default_logo} alt="Airline Logo" className="w-12 h-12" /> */}
                                 <Card className="w-full m mx-auto my-4 shadow-lg ">
@@ -301,7 +302,7 @@ const navigate = useNavigate()
                                     </CardFooter>
                                 </Card>
                             </div>
-                        </div>
+                        </Fade>
                     );
                 })}
             </div>

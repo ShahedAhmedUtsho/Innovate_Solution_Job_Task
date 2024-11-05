@@ -2,26 +2,30 @@ import { useEffect, useState } from "react";
 
 
 import { Parallax, Background } from 'react-parallax';
+import { useLocation } from "react-router-dom";
 const Banner = () => {
+    const location = useLocation()
     const [bannerImgIndex, setBannerImgIndex] = useState(0);
     const banner_images = [
         // "https://res.cloudinary.com/dxpdy0jfz/image/upload/f_auto,q_auto/mvftuub4fws8gpsuzha6",
         // "https://res.cloudinary.com/dxpdy0jfz/image/upload/f_auto,q_auto/cto57dqc74c3skexscqc",
         // "https://res.cloudinary.com/dxpdy0jfz/image/upload/f_auto,q_auto/r4pl2y2ppwbdrb1rhkcm",
         "https://res.cloudinary.com/dxpdy0jfz/image/upload/f_auto,q_auto/ftqrheyacaq9rfsvp2lu",
-        // "https://res.cloudinary.com/dxpdy0jfz/image/upload/f_auto,q_auto/ws4glikitkru8aojze9g"
+        "https://res.cloudinary.com/dxpdy0jfz/image/upload/f_auto,q_auto/ws4glikitkru8aojze9g"
     ];
 
 // image Changing effect 
 //   useEffect(()=>{
-//     const interval = setInterval(()=>{
-//         setBannerImgIndex((prev)=> prev === banner_images.length-1 ? 0 : prev + 1)
+//   if(location.pathname.slice(0,7) === "/flight"){
+//     setBannerImgIndex(1)
+//   }else{
+//     setBannerImgIndex(0)
+//   }
+
+//   },[location])
 
 
-//     },5000)
-//     return ()=> clearInterval(interval)
 
-//   },[])
 
 
 
@@ -42,10 +46,7 @@ const Banner = () => {
                 
               <img  className="object-cover   absolute top-0 left-0 z-0   w-full h-full"   src={banner_images[bannerImgIndex]} 
               
-              style={{
-                background : `url(${banner_images[bannerImgIndex]})`,
-               
-            }}
+             
               
               
               
