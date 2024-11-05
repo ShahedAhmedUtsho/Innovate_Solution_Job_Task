@@ -12,15 +12,25 @@ import { JourneyTypeUpdate } from "@/Store/SearchStore";
 
 import SearchTabContent from "./SearchTabContent";
 import { AirportStore } from "@/Store/AirportsStore";
+import { useLocation, useNavigate } from "react-router-dom";
+import { SearchSlash } from "lucide-react";
 
 
 
 const Search = () => {
+
+
+const {pathname} = useLocation()
+const navigate = useNavigate()
+
+
 // check is airport data  exist in localStorage
 
 const airports = useMemo(()=>localStorage.getItem("airports"),[]) ;
 
 // 
+//
+
 
 
 
@@ -70,9 +80,21 @@ const handleJourneyTypeChange = useCallback((e)=>{
 
 
     return (
-        <div className=' search_component  texture z-50   flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8  md:w-[90%] lg:w-[85vw] max-w-[1232px] mx-auto border border-black/10 bg-white md:relative  md:bottom-10 lg:bottom-20 md:rounded-2xl'>
+        <div className={` search_component  texture z-40   flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 ${pathname === "/" ? "md:w-[90%] lg:w-[85vw] mx-auto  " : "mx-4 lg:mx-auto"}  max-w-[1232px]    border border-black/10 bg-white md:relative  md:bottom-6 lg:bottom-20 md:rounded-2xl `}>
 
-<Tabs  onValueChange={handleJourneyTypeChange}  defaultValue="OneWay" className=" w-full h-full flex flex-col justify-start items-start ">
+<div className={` ${pathname ==="/" ? " hidden  " : ""} flex gap-2 bg-black/10 hover:bg-green-500/20  rounded-lg relative top-2 py-2 px-3  lg:hidden `} onClick={()=>{
+  navigate("/")
+}}>
+<SearchSlash className="" />
+
+Modify search
+
+
+</div>
+
+
+
+<Tabs  onValueChange={handleJourneyTypeChange}  defaultValue="OneWay" className={` w-full h-full ${pathname !=="/" ? " hidden lg:flex " : ""}  flex flex-col justify-start items-start  `}>
   <TabsList className="mont  bg-green-700 text-white" >
     <TabsTrigger   value="OneWay"  >One Way</TabsTrigger>
     <TabsTrigger  value="RoundTrip">Round Trip</TabsTrigger>

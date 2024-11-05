@@ -2,6 +2,7 @@ import {
   BaggageOptionUpdate,
   BookingClassUpdate,
   NonStopFlightUpdate,
+  SearchObjectUpdate,
   useBaggageOption,
   useBookingClass,
   useJourneyType,
@@ -35,6 +36,8 @@ import {
 import { useCallback } from "react";
 import {  useMultiSegment } from "@/Store/MultiCityStore";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation, useNavigate } from "react-router-dom";
+import js from "@eslint/js";
 
 
 
@@ -43,6 +46,17 @@ import { useToast } from "@/hooks/use-toast";
 
 
 const CommonBottomBar = () => {
+
+  // use location and navigate form use navigation 
+  const navigate = useNavigate() ; 
+  const {pathname} = useLocation();
+ 
+
+
+
+
+
+
 
   const { toast } = useToast()
   //import SearchStore for data
@@ -243,22 +257,12 @@ if (!finalData.segment.every(isValidSegment)) {
   })
   console.log( "some values are missing ! please fill the values");
   console.log( finalData);
-return;
+
 
 
   
-}
+}else{
 
-
-//show toast on submit
-
-toast({
-  className: `text-white bg-green-700 max-h-18 !text-xs`,
-  variant:  "success" ,
-  duration: 1500,
-  title: " Successfully submitted",
-  description: "Check the console for the data",
-})
 
 
     // job task provaided final datatype is json so i console is a a Json body
@@ -266,7 +270,21 @@ toast({
     const jsonData = JSON.stringify(finalData);
     
 
+    
+    SearchObjectUpdate(finalData);
+    console.log(jsonData);
     console.log(finalData);
+    navigate("/flight/search")
+
+}
+
+
+
+
+
+
+
+
   },[
     journey_type,
     departure_airport_type,
@@ -294,7 +312,7 @@ toast({
 
   return (
     <>
-      <div className="search_Bottom  w-full  flex md:flex-row flex-col gap-5 mont">
+      <div className={`search_Bottom  w-full  ${pathname !=="/" ? " hidden lg:flex " : ""} flex md:flex-row flex-col gap-5 mont`}>
         <Select
           className="!w-full !bg-black"
           defaultValue="Economy"
@@ -359,7 +377,7 @@ toast({
       </div>
       <Button
         onClick={handleSearch}
-        className=" self-end bg-green-700 hover:bg-green-800 hover:text-green-50  md:w-auto w-full mt-4  "
+        className={` ${pathname !=="/" ? " hidden lg:flex " : ""}  self-end bg-green-700 hover:bg-green-800 hover:text-green-50  md:w-auto w-full mt-4  `}
       >
         Search
       </Button>

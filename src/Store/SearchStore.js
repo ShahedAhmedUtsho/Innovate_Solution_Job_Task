@@ -4,9 +4,19 @@
 import { Store } from "pullstate";
 
 export const SearchStore = new Store({
+    // i need to save the initial result in this state
+    initial_result: [],
+    // i need to save the search object in this state
+    search_object: {},
+    // i need to save the search result
+    search_result: [],
+
+
+
+
     journey_type: "OneWay",
     segment: [
-   
+
 
     ],
     preferred_carrier: [],
@@ -95,5 +105,29 @@ export const useBookingClass = () => {
 export const BookingClassUpdate = (booking_class) => {
     SearchStore.update(s => {
         s.booking_class = booking_class
+    })
+}
+
+// get and update the search-object state
+
+export const useSearchObject = () => {
+    return SearchStore.useState(s => s.search_object);
+}
+
+export const SearchObjectUpdate = (search_object) => {
+    SearchStore.update(s => {
+        s.search_object = search_object
+    })
+}
+
+// get and update the search-result state
+
+export const useSearchResult = () => {
+    return SearchStore.useState(s => s.search_result);
+}
+
+export const SearchResultUpdate = (search_result) => {
+    SearchStore.update(s => {
+        s.search_result = search_result
     })
 }
