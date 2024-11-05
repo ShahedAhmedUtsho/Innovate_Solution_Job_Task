@@ -9,7 +9,7 @@ const Routes = () => {
         
 
        
-        <div className='min-h-[150vh]  mx-auto   '>
+        <div className='min-h-[100vh]  mx-auto   '>
             <Header />
            
             <Outlet  />

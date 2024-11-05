@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 import { useSearchObject, useSearchResult, SearchResultUpdate } from "@/Store/SearchStore";
 // import Default_logo from "../../assets/Logo/Logo-96.png";
-import { Filter, Heart, SearchSlash, X } from "lucide-react";
+import { Filter, Frown, Heart, SearchSlash, X } from "lucide-react";
 import axios from "axios";
 import moment from "moment";
 import Slider from 'rc-slider';
@@ -124,7 +124,7 @@ const navigate = useNavigate()
     }, [searchObject, priceRange, sortByTime]);  // Dependency array includes both searchObject and priceRange
 
     return (
-        <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4 ">
+        <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4 mb-10 ">
             <span onClick={handleFilterToggle} className={`w-10 h-10 p-1 bg-green-800 transition-all  duration-300 ease-linear  fixed top-20 left-0 border-y border-white  rounded-r-full ${showFilter ? "hidden" : "flex "} lg:hidden  justify-center items-center `}>
                 <Filter className="text-white relative right-1" />
             </span>
@@ -188,7 +188,7 @@ const navigate = useNavigate()
                 </Card>
             </div>
 
-            <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 h-screen overflow-y-scroll">
+            <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 min-h-96 overflow-y-scroll">
                 <CardHeader>
                     <CardTitle>Filters</CardTitle>
                 </CardHeader>
@@ -242,7 +242,11 @@ const navigate = useNavigate()
             </Card>
 
             <div className=" col-span-12 lg:col-span-9 relative">
-                {loading === false && searchResult.length === 0 ? <div className="text-center mt-8 w-full flex justify-center items-center col-span-12">No Flights Found</div> : (
+                {loading === false && searchResult.length === 0 ? <div className="text-center  w-full flex justify-center items-center col-span-12 flex-col gap-2 mt-20 opacity-50">
+
+                  <Frown size="50" className="" />
+                  
+                  No Flights Found</div> : (
                 <div className=" w-full  flex  items-center -top-5">
                       <span className="rounded-md text-xs self-end py-1 px-4    border-b border-b-green-600 underline-offset-4">
                         Total: {searchResult.length}
