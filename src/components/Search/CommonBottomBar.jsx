@@ -37,6 +37,7 @@ import { useCallback } from "react";
 import {  useMultiSegment } from "@/Store/MultiCityStore";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import js from "@eslint/js";
 
 
 
@@ -262,15 +263,6 @@ if (!finalData.segment.every(isValidSegment)) {
   
 }else{
 
-//show toast on submit
-
-toast({
-  className: `text-white bg-green-700 max-h-18 !text-xs`,
-  variant:  "success" ,
-  duration: 1500,
-  title: " Successfully submitted",
-  description: "Check the console for the data",
-})
 
 
     // job task provaided final datatype is json so i console is a a Json body
@@ -278,8 +270,10 @@ toast({
     const jsonData = JSON.stringify(finalData);
     
 
-    console.log(finalData);
+    
     SearchObjectUpdate(finalData);
+    console.log(jsonData);
+    console.log(finalData);
     navigate("/flight/search")
 
 }

@@ -2,18 +2,25 @@ import { Button } from "../ui/button";
 
 import logo from "../../assets/Logo/Logo.svg";
 import { AlignCenter } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const Header = () => {
+    const {pathname} = useLocation()
 
+
+    const navigate = useNavigate()
+const toHome = ()=>{
+    navigate("/")
+}
 
     
     return (
-       <div className={` flex   min-h-20 lg:mt-8  z-50  absolute   top-0 left-0 right-0 mx-auto  justify-center items-center `}>
-          <div className={`  flex justify-between items-center lg:px-8 md:px-4 lg:container w-full  `}>
+       <div className={` flex   min-h-20 lg:mt-8  z-50  absolute   top-0 left-0 right-0 mx-auto ${pathname !== "/" ? "max-w-[1232px] mx-4 lg:mx-auto" : "lg:px-8 md:px-4" }  justify-center items-center `}>
+          <div className={`  flex justify-between items-center     w-full  `}>
           
 
-          <div>
+          <div onClick={toHome}  >
               <img className="md:max-h-20 w-20 md:w-auto  " src={logo} alt="logo" />
 
           </div>
