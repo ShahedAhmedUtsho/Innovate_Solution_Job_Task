@@ -7,7 +7,9 @@ export const SearchStore = new Store({
     // i need to save the initial result in this state
     initial_result: [],
     // i need to save the search object in this state
-    search_object: {},
+    search_object: {
+        segment:[]
+    },
     // i need to save the search result
     search_result: [],
 

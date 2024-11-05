@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { useSearchObject, useSearchResult, SearchResultUpdate } from "@/Store/SearchStore";
-// import Default_logo from "../../assets/Logo/Logo-96.png";
+import Default_logo from "../../assets/Logo/Logo-96.png";
 import { Filter, Frown, Heart, Plane, PlaneLanding, PlaneTakeoff, SearchSlash, X } from "lucide-react";
 import axios from "axios";
 import moment from "moment";
@@ -238,82 +238,98 @@ const navigate = useNavigate()
 
 
             {/* Desktop Filter sidebar */}
-            <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 h-96 overflow-y-scroll">
-                <CardHeader>
-                    <CardTitle className="mont">Filters</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="mb-4">
-                        <h3 className="font-medium mb-2">Price Range</h3>
-                        <Slider
-                            range
-                            min={0}
-                            className="text-green-800"
-                            max={10000}
-                            step={100}
-                            value={priceRange}
-                            onChange={handleSliderChange}
-                            trackStyle={[{ backgroundColor: 'black' , height: '5px' }, { backgroundColor: 'black' , height: '15px' }]}
-                            handleStyle={[
-                                { backgroundColor: 'green', borderColor: 'black'  , boxShadow: '0 0 0 0' ,width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-8px' }, 
-                                { backgroundColor: 'green', borderColor: 'black'  , boxShadow: '0 0 0 0' ,width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-8px' }, 
-                            ]}
-                        />
-                        <div className="flex justify-between mt-2 text-sm">
-                            <span>${priceRange[0].toFixed(2)}</span>
-                            <span>${priceRange[1].toFixed(2)}</span>
-                        </div>
-                    </div>
+            {
+              searchObject.segment.length !==0 &&  <Card className="col-span-3 border-green-900/20 shadow-sm rounded-lg hidden lg:block  lg:sticky left-0 top-4 h-96 overflow-y-scroll">
+              <CardHeader>
+                  <CardTitle className="mont">Filters</CardTitle>
+              </CardHeader>
+              <CardContent>
+                  <div className="mb-4">
+                      <h3 className="font-medium mb-2">Price Range</h3>
+                      <Slider
+                          range
+                          min={0}
+                          className="text-green-800"
+                          max={10000}
+                          step={100}
+                          value={priceRange}
+                          onChange={handleSliderChange}
+                          trackStyle={[{ backgroundColor: 'black' , height: '5px' }, { backgroundColor: 'black' , height: '15px' }]}
+                          handleStyle={[
+                              { backgroundColor: 'green', borderColor: 'black'  , boxShadow: '0 0 0 0' ,width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-8px' }, 
+                              { backgroundColor: 'green', borderColor: 'black'  , boxShadow: '0 0 0 0' ,width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-8px' }, 
+                          ]}
+                      />
+                      <div className="flex justify-between mt-2 text-sm">
+                          <span>${priceRange[0].toFixed(2)}</span>
+                          <span>${priceRange[1].toFixed(2)}</span>
+                      </div>
+                  </div>
 
-                    <div className="flex gap-5">
-                        <Checkbox
-                            checked={sortByTime}
-                            onCheckedChange={handleSortByTime}
-                            className="text-green-800"
-                            id="terms"
-                        />
-                        <label
-                            htmlFor="terms"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Sort by Devotion Time
-                        </label>
-                    </div>
-                    {/* <div className={` ${pathname ==="/" ? " hidden  " : ""} flex gap-2 w-full mt-5  lg:bg-black/10 hover:bg-green-500/20  rounded-lg relative top-2 py-2 px-3   `} onClick={()=>{
-                    navigate("/")
-                      }}>
-                    <SearchSlash className="" />
+                  <div className="flex gap-5">
+                      <Checkbox
+                          checked={sortByTime}
+                          onCheckedChange={handleSortByTime}
+                          className="text-green-800"
+                          id="terms"
+                      />
+                      <label
+                          htmlFor="terms"
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                          Sort by Devotion Time
+                      </label>
+                  </div>
+                  {/* <div className={` ${pathname ==="/" ? " hidden  " : ""} flex gap-2 w-full mt-5  lg:bg-black/10 hover:bg-green-500/20  rounded-lg relative top-2 py-2 px-3   `} onClick={()=>{
+                  navigate("/")
+                    }}>
+                  <SearchSlash className="" />
 
-                      Modify search
-
-
-                    </div> */}
-                </CardContent>
-            </Card>
+                    Modify search
 
 
+                  </div> */}
+              </CardContent>
+          </Card>
 
 
+            }
+           
 
+
+     {/* map the search result to show the flight data */}
+     {
+                searchObject.segment.length ===0 && (
+                  <div className="flex w-full  col-span-12 flex-col items-center justify-center h-full opacity-50">
+                    <img src={Default_logo} alt="Default Logo" className="w-24 h-24 mb-4" />
+                    <h1 className="text-2xl font-bold text-gray-700">Welcome to Flight Golobe</h1>
+                    <p className="text-gray-500 mt-2">Explore your journey with us</p>
+                  </div>
+                ) 
+                }
 
 
             {/* Flight Results show component */}
             <div className=" col-span-12 lg:col-span-9 relative">
-                {loading === false && searchResult.length === 0 ? <div className="text-center  w-full flex justify-center items-center col-span-12 flex-col gap-2 mt-20 opacity-50">
+                {loading === false && searchObject.segment.length !==0 && searchResult.length === 0 ?  <div className="text-center  w-full flex justify-center items-center col-span-12 flex-col gap-2 mt-20 opacity-50">
 
                   <Frown size="50" className="" />
                   
-                  No Flights Found</div> : (
-                <div className=" w-full  flex  items-center -top-5">
-                      <span className="rounded-md text-xs self-end py-1 px-4    border-b border-b-green-600 underline-offset-4">
-                        Total: {searchResult.length}
+                  No Flights Found</div> : null}
+
+           
+{
+ searchResult.length !== 0 &&    searchObject.segment.length !==0  &&  <div className=" w-full  flex  items-center -top-5">
+  <span className="rounded-md text-xs self-end py-1 px-4    border-b border-b-green-600 underline-offset-4">
+    Total: {searchResult.length}
 
 
-                    </span>
-                </div>
-                )}
+</span>
+</div>
+}
 
-                {/* map the search result to show the flight data */}
+
+
 
                 {searchResult.map((item, index) => {
                     const departure = item.departure_route;
