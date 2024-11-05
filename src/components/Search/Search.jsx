@@ -80,7 +80,7 @@ const handleJourneyTypeChange = useCallback((e)=>{
 
 
     return (
-        <div className={` search_component  texture z-40   flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 ${pathname === "/" ? "md:w-[90%] lg:w-[85vw] mx-auto  " : "mx-4 lg:mx-auto"}  max-w-[1232px]    border border-black/10 bg-white md:relative  md:bottom-6 lg:bottom-8 md:rounded-2xl `}>
+        <div className={` search_component  texture z-40   flex flex-col  justify-center items-center  px-4 lg:px-8 pt-4 pb-8 ${pathname === "/" ? "md:w-[90%] lg:w-[85vw] mx-auto  " : "mx-4 lg:mx-auto"}  max-w-[1232px]    border border-black/10 bg-white md:relative  md:bottom-6 lg:bottom-20 md:rounded-2xl `}>
 
 <div className={` ${pathname ==="/" ? " hidden  " : ""} flex gap-2 bg-black/10 hover:bg-green-500/20  rounded-lg relative top-2 py-2 px-3  lg:hidden `} onClick={()=>{
   navigate("/")

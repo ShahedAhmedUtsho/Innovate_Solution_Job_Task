@@ -1,17 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox"
+
 import { useSearchObject, useSearchResult, SearchResultUpdate } from "@/Store/SearchStore";
 import Default_logo from "../../assets/Logo/Logo-96.png";
 import { Heart } from "lucide-react";
 import axios from "axios";
 import moment from "moment";
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
 
 const FlightSearch = () => {
     // get the search result and search object state from the store
-  const searchResult = useSearchResult();
-  const searchObject = useSearchObject();
+    const searchResult = useSearchResult();
+    const searchObject = useSearchObject();
+  
+// for slider price range filter
+  const [priceRange, setPriceRange] = useState([0, 5000]);
+
+  const handleSliderChange = (value) => {
+    setPriceRange(value);
+  };
+// Sort by devotion time
+const [sortByTime, setSortByTime] = useState(false);
+  
+const handleSortByTime = (e) => {
+    setSortByTime(e);
+    console.log(e, "hi");
+  
+}
+
 
 
 // filter the flight data based on the search object 
@@ -32,65 +52,73 @@ const FlightSearch = () => {
     });
   };
   
-
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/flight_search_result.json");
-        const filteredFlights = filterFlights(response.data, searchObject);
+    const fetchAndFilterFlights = async () => {
+        try {
+            const response = await axios.get("/flight_search_result.json");
+            const filteredFlights = filterFlights(response.data, searchObject);
 
-        // map the filtered flights to add departure and arrival routes
-const newResult = filteredFlights.map((item,index)=>{
-// get the departure and arrival route based on the search object segment
-const Departure_Route = item.flight_group[0].routes.find(route=>route.origin === searchObject.segment[0].departure_airport);
-const Arrival_Route = item.flight_group[0].routes.find(route=>route.destination === searchObject.segment[0].arrival_airport);
+            // Map the filtered flights to add departure and arrival routes
+            const newResult = filteredFlights.map((item) => {
+                const Departure_Route = item.flight_group[0].routes.find(route => route.origin === searchObject.segment[0].departure_airport);
+                const Arrival_Route = item.flight_group[0].routes.find(route => route.destination === searchObject.segment[0].arrival_airport);
 
-
-
-
-
-
-
-  
+const departure_time = new Date(Departure_Route.departure_time);
+const arrival_time = new Date(Arrival_Route.arrival_time);
 
 
 
 
-// return the flight data with departure and arrival route
-    return {
-        ...item,
-        departure_route: Departure_Route,
-        arrival_route: Arrival_Route
-    }
-})
 
 
-// filter_unique_filter_code 
-
-// filter the duplicate flight data based on the flight key and price total
-const duplicateFilter =  newResult.filter((item,index,full)=>{
-
-    const filter_unique_filter_code_Match  = full.find((i,index)=>{
-        return  i.flight_key === item.flight_key && i.price.total === item.price.total
-
-    })
-
-   
-    return filter_unique_filter_code_Match === item
 
 
-})
+const Journey_duration_time = arrival_time - departure_time;
 
 
-// update the search result state with the filtered flight data
 
-        SearchResultUpdate(duplicateFilter);
-       
-      } catch (error) {
-        console.error("Error fetching flight data:", error);
-      }
-    })();
-  }, [searchObject]);
+                return {
+                  
+                    ...item,
+                    departure_route: Departure_Route,
+                    arrival_route: Arrival_Route,
+                    Journey_duration_time
+                };
+            });
+
+            // Filter out duplicate flight data based on flight key and price
+            const duplicateFilter = newResult.filter((item, index, full) => {
+                const match = full.find(i => i.flight_key === item.flight_key && i.price.total === item.price.total);
+                return match === item;
+            });
+
+            // Apply the price range filter to the duplicate-free flights
+            let finalResult = duplicateFilter.filter((flight) => {
+                return flight.price.total >= priceRange[0] && flight.price.total <= priceRange[1];
+            });
+            if (sortByTime) {
+              // Add your logic here to sort `finalResult` by devotion time.
+              finalResult = finalResult.sort((a, b) => {
+                const departureA = a.Journey_duration_time;
+                const departureB = b.Journey_duration_time;
+                return departureA - departureB;
+              });
+            }
+            // Update the search result state with the final filtered flights
+            SearchResultUpdate(finalResult);
+
+        } catch (error) {
+            console.error("Error fetching flight data:", error);
+        }
+    };
+
+    fetchAndFilterFlights();
+
+
+
+
+    
+}, [searchObject, priceRange,sortByTime]);  // dependency array includes both searchObject and priceRange
 
 
 
@@ -100,59 +128,106 @@ const duplicateFilter =  newResult.filter((item,index,full)=>{
 
 
   return (
-    <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4">
+    <>
+    {searchResult.length === 0 ? <div className="text-center mt-8 w-full flex justify-center items-center col-span-12">No Flights Found</div> :  <div className="max-w-[1232px] mx-auto grid grid-cols-12 gap-4 ">
 
 
-{searchResult.length === 0 ? <div className="text-center mt-8 w-full flex justify-center items-center col-span-12">No Flights Found</div> : <>
 
 
-    <Card className="col-span-3 shadow-md rounded-lg hidden lg:block  lg:sticky left-0 top-4 h-screen  ">
 
-        
-<CardHeader>
-  <CardTitle>Filters</CardTitle>
-</CardHeader>
-<CardContent>
-  <div className="mb-4">
-    <h3 className="font-medium mb-2">Price</h3>
-    <Slider defaultValue={[50]} max={1200} className="w-full" />
+
+
+
+<Card className="col-span-3 shadow-md rounded-lg hidden lg:block lg:sticky left-0 top-4 h-screen">
+          <CardHeader>
+            <CardTitle>Filters</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-4">
+              <h3 className="font-medium mb-2">Price Range</h3>
+              <Slider
+      range
+      min={0}
+      className="text-green-800"
+      max={10000}
+      step={100}
+      value={priceRange}
+      onChange={handleSliderChange}
+      trackStyle={[{ backgroundColor: 'black' , height: '5px' }, { backgroundColor: 'black' , height: '15px' }]}
+      handleStyle={[
+        { backgroundColor: 'green', borderColor: 'black'  , boxShadow: '0 0 0 0' ,width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-8px' }, 
+        { backgroundColor: 'green', borderColor: 'black'  , boxShadow: '0 0 0 0' ,width: '20px', height: '20px', marginLeft: '-10px', marginTop: '-8px' }, 
+      ]}
+    />
+    <div className="flex justify-between mt-2 text-sm">
+      <span>${priceRange[0].toFixed(2)}</span>
+      <span>${priceRange[1].toFixed(2)}</span>
+    </div>
+            </div>
+
+            <div className="flex gap-2">
+            <Checkbox
+checked={sortByTime}
+onCheckedChange={handleSortByTime}
+className="text-green-800"
+id="terms"
+/>
+    <label
+      htmlFor="terms"
+      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+    >
+      Sort by Devotion Time
+    </label>
   </div>
-  <div className="mb-4">
-    <h3 className="font-medium mb-2">Departure Time</h3>
-    <Slider defaultValue={[0]} max={24} className="w-full" />
-  </div>
-</CardContent>
-</Card>
+          </CardContent>
+
+        </Card>
+
+
+
+
+
+
+
+
+
+
+
 
 <div className=" col-span-12 lg:col-span-9">
 
 
+
+
+
+
+
+
 {searchResult.map((item, index) => {
+
+
+
+
+const departure = item.departure_route;
+const arrival = item.arrival_route;
+
+const departure_time = new Date(departure.departure_time);
+const arrival_time = new Date(arrival.arrival_time);
+
+
+
+const differenceInMs = arrival_time - departure_time;
+const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
+const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
+const journey_duration = `${hours}h ${minutes}m`;
+
+
+return (
  
-
-
-
-  const departure = item.departure_route;
-  const arrival = item.arrival_route;
-console.log("departure",departure)
-console.log("arrival",arrival)
-  const departure_time = new Date(departure.departure_time);
-  const arrival_time = new Date(arrival.arrival_time);
-
-
-
-  const differenceInMs = arrival_time - departure_time;
-  const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
-  const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
-  const journey_duration = `${hours}h ${minutes}m`;
-
-
-  return (
-   
-      <div key={index} className="flex justify-between items-start  min-h-56">
-        <div className="flex items-start w-full  ">
-          {/* <img src={Default_logo} alt="Airline Logo" className="w-12 h-12" /> */}
-          <Card className="w-full m mx-auto my-4 shadow-lg ">
+    <div key={index} className="flex justify-between items-start  min-h-56">
+      <div className="flex items-start w-full  ">
+        {/* <img src={Default_logo} alt="Airline Logo" className="w-12 h-12" /> */}
+        <Card className="w-full m mx-auto my-4 shadow-lg ">
 <CardHeader className="p-4 border-b w-full ">
 <CardTitle className="flex justify-between items-center text-lg font-bold">
 <span className="text-green-700">{item.price.total} {item.price.currency}</span>
@@ -187,15 +262,19 @@ View Details
 </CardFooter>
 </Card>
 
-        </div>
       </div>
-    
-  );
+    </div>
+  
+);
 })}
 </div>
-</> }
 
-    </div>
+
+
+  </div> }
+
+    </>
+   
   );
 };
 
