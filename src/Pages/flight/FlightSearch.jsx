@@ -36,7 +36,7 @@ const navigate = useNavigate()
     // Handle sort by time change
     const handleSortByTime = (e) => {
         setSortByTime(e);
-        console.log(e, "hi");
+        
     }
 
     // State for responsive filter hide and show
@@ -294,8 +294,7 @@ const navigate = useNavigate()
 
 
             }
-           
-
+        
 
      {/* map the search result to show the flight data */}
      {

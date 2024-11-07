@@ -255,8 +255,7 @@ if (!finalData.segment.every(isValidSegment)) {
     description: "fill the values",
     
   })
-  console.log( "some values are missing ! please fill the values");
-  console.log( finalData);
+
 
 
 
@@ -272,8 +271,7 @@ if (!finalData.segment.every(isValidSegment)) {
 
     
     SearchObjectUpdate(finalData);
-    console.log(jsonData);
-    console.log(finalData);
+   
     navigate("/flight/search")
 
 }
